@@ -7,5 +7,5 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.RootNamespace = Ubeer.DAL
-build_property.ProjectDir = C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\
+build_property.RootNamespace = Ubeer.METIER
+build_property.ProjectDir = C:\Users\mamat\source\repos\Ubeer\Ubeer.METIER\
