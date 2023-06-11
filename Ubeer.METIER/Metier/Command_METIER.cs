@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ubeer.DAL.DAL;
+using Ubeer.DAL.Depot;
 
 namespace Ubeer.METIER.Metier
 {
