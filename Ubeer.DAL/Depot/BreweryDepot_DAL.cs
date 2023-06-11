@@ -96,7 +96,7 @@ namespace Ubeer.DAL.Depot
 			CreerConnexionEtCommande();
 
 			commande.CommandText = "UPDATE Brewery SET ID=@ID, Code=@Code, Libelle=@Libelle, PostalCode=@PostalCode, City=@City, WebsiteUrl=@WebsiteUrl WHERE ID=@ID";
-			commande.Parameters.Add(new SqlParameter("@ID", brewery.Id));
+			commande.Parameters.Add(new SqlParameter("@ID", brewery.ID));
 			commande.Parameters.Add(new SqlParameter("@Code", brewery.Code));
 			commande.Parameters.Add(new SqlParameter("@Libelle", brewery.Libelle));
 			commande.Parameters.Add(new SqlParameter("@PostalCode", brewery.PostalCode));
@@ -107,7 +107,7 @@ namespace Ubeer.DAL.Depot
 
 			if (nombreDeLignesAffectees != 1)
 			{
-				throw new Exception($"Impossible de mettre à jour l'Adherents d'ID : {brewery.Id}");
+				throw new Exception($"Impossible de mettre à jour l'Adherents d'ID : {brewery.ID}");
 			}
 
 			DetruireConnexionEtCommande();
@@ -122,12 +122,12 @@ namespace Ubeer.DAL.Depot
 			CreerConnexionEtCommande();
 
 			commande.CommandText = "DELETE FROM Brewery WHERE ID=@ID";
-			commande.Parameters.Add(new SqlParameter("@ID", brewery.Id));
+			commande.Parameters.Add(new SqlParameter("@ID", brewery.ID));
 			var nombreDeLignesAffectees = commande.ExecuteNonQuery();
 
 			if (nombreDeLignesAffectees != 1)
 			{
-				throw new Exception($"Impossible to delete the Brewery with ID : {brewery.Id}");
+				throw new Exception($"Impossible to delete the Brewery with ID : {brewery.ID}");
 			}
 
 			DetruireConnexionEtCommande();
