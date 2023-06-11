@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "U0wP5zAEfvqCucui0RLRQzvfwdzzQuuX2Ua3piO6jg5Jd3J3wB+WDsI1TqkIAcSjsDp2mJ4eZT/pPc620mrnjw==",
+  "dgSpecHash": "Om7PE3JYs8KZMyO9iCsg9/t5RRzTGi2Ez4rqalS/xl0HDL9WniPY09jhH3Kc1COzBFAlZ1KKgJOZk/Q0ud/SMg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mamat\\Source\\Repos\\Ubeer\\Ubeer\\Ubeer.csproj",
+  "projectFilePath": "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer\\Ubeer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mamat\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\mamat\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mamat\\Source\\Repos\\Ubeer\\Ubeer\\Ubeer.csproj": {}
+    "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer\\Ubeer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mamat\\Source\\Repos\\Ubeer\\Ubeer\\Ubeer.csproj": {
+    "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer\\Ubeer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mamat\\Source\\Repos\\Ubeer\\Ubeer\\Ubeer.csproj",
+        "projectUniqueName": "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer\\Ubeer.csproj",
         "projectName": "Ubeer",
-        "projectPath": "C:\\Users\\mamat\\Source\\Repos\\Ubeer\\Ubeer\\Ubeer.csproj",
+        "projectPath": "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer\\Ubeer.csproj",
         "packagesPath": "C:\\Users\\mamat\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\mamat\\Source\\Repos\\Ubeer\\Ubeer\\obj\\",
         "projectStyle": "PackageReference",
