@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ubeer", "Ubeer\Ubeer.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ubeer.DAL", "Ubeer.DAL\Ubeer.DAL.csproj", "{8C54331F-3841-4867-BB36-98AB3F2AF13D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubeer.METIER", "Ubeer.METIER\Ubeer.METIER.csproj", "{B1E41319-5D0A-4577-B9FF-E5B469A4AF41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8C54331F-3841-4867-BB36-98AB3F2AF13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C54331F-3841-4867-BB36-98AB3F2AF13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C54331F-3841-4867-BB36-98AB3F2AF13D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E41319-5D0A-4577-B9FF-E5B469A4AF41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E41319-5D0A-4577-B9FF-E5B469A4AF41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E41319-5D0A-4577-B9FF-E5B469A4AF41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E41319-5D0A-4577-B9FF-E5B469A4AF41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
