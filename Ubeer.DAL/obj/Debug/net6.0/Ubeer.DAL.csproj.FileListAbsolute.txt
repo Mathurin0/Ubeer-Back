@@ -1,0 +1,5 @@
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.csproj.AssemblyReference.cache
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.AssemblyInfoInputs.cache
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.AssemblyInfo.cs
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.csproj.CoreCompileInputs.cache

@@ -73,8 +73,7 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "INSERT INTO Brewery (ID, Code, Libelle, PostalCode, City, WebsiteUrl) VALUES (@ID, @Code, @Libelle, @PostalCode, @City, @WebsiteUrl); SELECT SCOPE_IDENTITY()";
-			commande.Parameters.Add(new SqlParameter("@ID", brewery.Id));
+			commande.CommandText = "INSERT INTO Brewery (Code, Libelle, PostalCode, City, WebsiteUrl) VALUES (@Code, @Libelle, @PostalCode, @City, @WebsiteUrl); SELECT SCOPE_IDENTITY()";
 			commande.Parameters.Add(new SqlParameter("@Code", brewery.Code));
 			commande.Parameters.Add(new SqlParameter("@Libelle", brewery.Libelle));
 			commande.Parameters.Add(new SqlParameter("@PostalCode", brewery.PostalCode));
@@ -83,7 +82,7 @@ namespace Ubeer.DAL.Depot
 
 			var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-			brewery.Id = ID;
+			brewery.ID = ID;
 
 			DetruireConnexionEtCommande();
 
