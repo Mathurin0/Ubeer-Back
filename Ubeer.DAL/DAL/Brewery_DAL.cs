@@ -8,7 +8,7 @@ namespace Ubeer.DAL.DAL
 {
     public class Brewery_DAL
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         public string Code { get; set; }
 
@@ -20,7 +20,7 @@ namespace Ubeer.DAL.DAL
 
         public string WebsiteUrl { get; set; }
 
-        public Brewery_DAL(int id, string code, string libelle, string postalCode, string city, string websiteUrl ) => (Id, Code, Libelle, PostalCode, City, WebsiteUrl) = (id, code, libelle, postalCode, city, websiteUrl);
+        public Brewery_DAL(int id, string code, string libelle, string postalCode, string city, string websiteUrl ) => (ID, Code, Libelle, PostalCode, City, WebsiteUrl) = (id, code, libelle, postalCode, city, websiteUrl);
 
         public Brewery_DAL(string code, string libelle, string postalCode, string city, string websiteUrl) => (Code, Libelle, PostalCode, City, WebsiteUrl) = (code, libelle, postalCode, city, websiteUrl);
 
