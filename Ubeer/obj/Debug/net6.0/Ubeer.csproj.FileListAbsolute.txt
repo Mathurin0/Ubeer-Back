@@ -30,3 +30,35 @@ C:\Users\mamat\OneDrive\Documents\EPSI\B3\Archi N Tier\Ubeer\Ubeer\obj\Debug\net
 C:\Users\mamat\OneDrive\Documents\EPSI\B3\Archi N Tier\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.pdb
 C:\Users\mamat\OneDrive\Documents\EPSI\B3\Archi N Tier\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.genruntimeconfig.cache
 C:\Users\mamat\OneDrive\Documents\EPSI\B3\Archi N Tier\Ubeer\Ubeer\obj\Debug\net6.0\ref\Ubeer.dll
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\appsettings.Development.json
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\appsettings.json
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.exe
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.deps.json
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.runtimeconfig.json
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.dll
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.pdb
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Ubeer\Ubeer\Ubeer\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.csproj.AssemblyReference.cache
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.AssemblyInfoInputs.cache
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.AssemblyInfo.cs
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.csproj.CoreCompileInputs.cache
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.MvcApplicationPartsAssemblyInfo.cs
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.MvcApplicationPartsAssemblyInfo.cache
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\staticwebassets\msbuild.Ubeer.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\staticwebassets\msbuild.build.Ubeer.props
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Ubeer.props
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Ubeer.props
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\staticwebassets.build.json
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\staticwebassets.development.json
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\scopedcss\bundle\Ubeer.styles.css
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.csproj.CopyComplete
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.dll
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\refint\Ubeer.dll
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.pdb
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.genruntimeconfig.cache
+C:\Ubeer\Ubeer\Ubeer\obj\Debug\net6.0\ref\Ubeer.dll
