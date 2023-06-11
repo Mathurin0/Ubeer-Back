@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
-namespace Raminagrobis.DAL
+namespace Ubeer.DAL
 {
 
     public abstract class Depot_DAL<Type_DAL> : IDepot_DAL<Type_DAL>
