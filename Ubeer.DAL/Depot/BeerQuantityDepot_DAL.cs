@@ -2,6 +2,8 @@
 using Ubeer.DAL.DAL;
 using System;
 using System.Collections.Generic;
+using System.Collections;
+
 namespace Ubeer.DAL.Depot
 {
     public class BeerQuantityDepot_DAL : Depot_DAL<BeerQuantity_DAL>
@@ -42,11 +44,18 @@ namespace Ubeer.DAL.Depot
             commande.CommandText = "Select Quantity, LastUpdate From BeerQuantity Where IdBeer=@IdBeer And IdCommande=@IdCommande";
             commande.Parameters.Add(("@IdBeer", idBeer));
             commande.Parameters.Add(("@IdCommande", idCommand));
-
             var reader = commande.ExecuteReader();
+            BeerQuantity_DAL beerQuantity;
 
-            var beerQuantity = new BeerQuantity_DAL(idBeer, idCommand, reader.GetInt32(0),
-										                            reader.GetDateTime(1));
+            if (reader.Read())
+            {
+				beerQuantity = new BeerQuantity_DAL(idBeer, idCommand, reader.GetInt32(0),
+																	reader.GetDateTime(1));
+			}
+			else
+			{
+				throw new Exception($"No occurrence of IdBeer {idBeer}, IdCommand {idCommand} in BeerQuantity table");
+			}
 
             DetruireConnexionEtCommande();
 

@@ -49,11 +49,19 @@ namespace Ubeer.DAL.Depot
 			commande.Parameters.Add(new SqlParameter("@IdBeer", idBeer));
 			commande.Parameters.Add(new SqlParameter("@IdBrewery", idBrewery));
 			var reader = commande.ExecuteReader();
-
-			var stock = new Stock_DAL(idBrewery,
+			Stock_DAL stock;
+			if (reader.Read())
+			{
+				stock = new Stock_DAL(idBrewery,
 									idBeer,
 									reader.GetInt32(0),
 									reader.GetDateTime(1));
+			}
+			else
+			{
+				throw new Exception($"No occurrence of IdBeer {idBeer}, IdBrewery {idBrewery} in beer table");
+			}
+			
 
 			DetruireConnexionEtCommande();
 
@@ -162,7 +170,7 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "DELETE FROM Brewery WHERE IdBrewery=@IdBrewery AND IdBeer=@IdBeer";
+			commande.CommandText = "DELETE FROM Stock WHERE IdBrewery=@IdBrewery AND IdBeer=@IdBeer";
 			commande.Parameters.Add(new SqlParameter("@IdBrewery", stock.IdBrewery));
 			commande.Parameters.Add(new SqlParameter("@IdBeer", stock.IdBeer));
 			var nombreDeLignesAffectees = commande.ExecuteNonQuery();
