@@ -27,7 +27,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByIdBeer
-		public Stock_METIER GetByIdBeerAndIdBrewery(int idBeer, int IdBrewery)
+		public Stock_METIER GetByIdBeerAndIdBrewery(string idBeer, string IdBrewery)
 		{
 			var depot = new StockDepot_DAL();
 			var stock = depot.GetByIdBeerAndIdBrewery(idBeer, IdBrewery);
@@ -37,7 +37,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByIdBeer
-		public Stock_METIER GetByIdBeer(int idBeer)
+		public Stock_METIER GetByIdBeer(string idBeer)
 		{
 			var depot = new StockDepot_DAL();
 			var stock = depot.GetByIdBeer(idBeer);
@@ -47,7 +47,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByIdService
-		public List<Stock_METIER> GetByIdBrewery(int idAddress)
+		public List<Stock_METIER> GetByIdBrewery(string idAddress)
 		{
 			var result = new List<Stock_METIER>();
 			var depot = new StockDepot_DAL();
@@ -78,11 +78,11 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region Delete
-		public void Delete(int id)
+		public void Delete(string idBrewery, string idBeer)
 		{
 			Stock_DAL stock;
 			StockDepot_DAL depot = new();
-			stock = depot.GetByID(id);
+			stock = depot.GetByIdBeerAndIdBrewery(idBeer, idBrewery);
 			depot.Delete(stock);
 		}
 		#endregion

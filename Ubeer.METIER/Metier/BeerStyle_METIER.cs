@@ -10,7 +10,7 @@ namespace Ubeer.METIER.Metier
 {
     public class BeerStyle_METIER
 	{
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Libelle { get; set; }
 
@@ -18,7 +18,7 @@ namespace Ubeer.METIER.Metier
 
 		public DateTime LastUpdate { get; set; }
 
-		public BeerStyle_METIER(int id, string libelle, DateTime creation, DateTime lastUpdate) => (Id, Libelle, Creation, LastUpdate) = (id, libelle, creation, lastUpdate);
+		public BeerStyle_METIER(string id, string libelle, DateTime creation, DateTime lastUpdate) => (Id, Libelle, Creation, LastUpdate) = (id, libelle, creation, lastUpdate);
 		public BeerStyle_METIER(string libelle, DateTime creation, DateTime lastUpdate) => (Libelle, Creation, LastUpdate) = (libelle, creation, lastUpdate);
 
 	}

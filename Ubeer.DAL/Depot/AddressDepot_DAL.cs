@@ -17,20 +17,21 @@ namespace Ubeer.DAL.Depot
 
             while (reader.Read())
             {
-                var address = new Address_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
+                var address = new Address_DAL(reader.GetGuid(0).ToString(),
+                                        reader.GetGuid(1).ToString(),
                                         reader.GetString(2),
                                         reader.GetString(3),
                                         reader.GetString(4),
                                         reader.GetString(5),
+                                        reader.GetString(6),
                                         reader.GetString(7),
-                                        reader.GetString(8),
+                                        reader.GetInt32(8),
                                         reader.GetString(9),
-                                        reader.GetString(10),
-                                        reader.GetDateTime(11),
-										reader.GetDateTime(12));
+                                        reader.GetDateTime(10),
+                                        reader.GetDateTime(11));
 
-                addressList.Add(address);
+
+				addressList.Add(address);
             }
 
             DetruireConnexionEtCommande();
@@ -38,7 +39,7 @@ namespace Ubeer.DAL.Depot
             return addressList;
         }
 
-        public override Address_DAL GetByID(int ID)
+        public override Address_DAL GetByID(string ID)
         {
             CreerConnexionEtCommande();
 
@@ -49,18 +50,18 @@ namespace Ubeer.DAL.Depot
             Address_DAL address;
             if (reader.Read())
             {
-                address = new Address_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
+                address = new Address_DAL(reader.GetGuid(0).ToString(),
+										reader.GetGuid(1).ToString(),
                                         reader.GetString(2),
                                         reader.GetString(3),
                                         reader.GetString(4),
                                         reader.GetString(5),
+                                        reader.GetString(6),
                                         reader.GetString(7),
-                                        reader.GetString(8),
+                                        reader.GetInt32(8),
                                         reader.GetString(9),
-                                        reader.GetString(10),
-										reader.GetDateTime(11),
-										reader.GetDateTime(12)
+										reader.GetDateTime(10),
+										reader.GetDateTime(11)
 										);
             }
             else
@@ -77,8 +78,24 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO Address (libelle, address, addresscomplement, city, region, country, postalcode, phonenumber, Creation, LastUpdate) VALUES (@Libelle, @Address, @AddressComplement, @City, @Region, @Country, @PostalCode, @PhoneNumber, GETDATE(), GETDATE()); SELECT SCOPE_IDENTITY()";
-            commande.Parameters.Add(new SqlParameter("@Libelle", address.Libelle));
+			//Création de l'ID
+			string ID = "";
+			while (ID == "")
+			{
+				Guid guid = Guid.NewGuid();
+				ID = guid.ToString();
+				commande.CommandText = $"SELECT COUNT(ID) FROM Address WHERE ID = '{ID}'";
+				int isIdAlreadyUsed = Convert.ToInt32(commande.ExecuteNonQuery());
+
+				if (isIdAlreadyUsed > 0)
+				{
+					ID = "";
+				}
+			}
+
+			commande.CommandText = "INSERT INTO Address (ID, IdUser, Libelle, Address, AddressComplement, City, Region, Country, PostalCode, PhoneNumber, Creation, LastUpdate) VALUES (@ID, @IdUser, @Libelle, @Address, @AddressComplement, @City, @Region, @Country, @PostalCode, @PhoneNumber, GETDATE(), GETDATE()); SELECT SCOPE_IDENTITY()";
+			commande.Parameters.Add(new SqlParameter("@IdUser", address.IdUser));
+			commande.Parameters.Add(new SqlParameter("@Libelle", address.Libelle));
             commande.Parameters.Add(new SqlParameter("@Address", address.Address));
             commande.Parameters.Add(new SqlParameter("@AddressComplement", address.AddressComplement));
             commande.Parameters.Add(new SqlParameter("@City", address.City));
@@ -86,10 +103,16 @@ namespace Ubeer.DAL.Depot
             commande.Parameters.Add(new SqlParameter("@Country", address.Country));
             commande.Parameters.Add(new SqlParameter("@PostalCode", address.PostalCode));
             commande.Parameters.Add(new SqlParameter("@PhoneNumber", address.PhoneNumber));
+			commande.Parameters.Add(new SqlParameter("@ID", ID));
 
-            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+			var affectedRow = commande.ExecuteNonQuery();
 
-            address.ID = ID;
+			if (affectedRow != 1)
+			{
+				throw new Exception($"{affectedRow} lignes affectées dans la table Address");
+			}
+
+			address.ID = ID;
 
             DetruireConnexionEtCommande();
 
@@ -100,7 +123,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE Address SET libelle=@Libelle, address=@Address, addresscomplement=@AddressCompelement, city=@City, region=@Region, country=@Country, phoneNumber=@phoneNumber, LastUpdate=GETDATE() WHERE ID=@ID";
+            commande.CommandText = "UPDATE Address SET Libelle=@Libelle, Address=@Address, AddressComplement=@AddressComplement, City=@City, Region=@Region, Country=@Country, PhoneNumber=@phoneNumber, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@Libelle", address.Libelle));
             commande.Parameters.Add(new SqlParameter("@Address", address.Address));
             commande.Parameters.Add(new SqlParameter("@AddressComplement", address.AddressComplement));
@@ -109,8 +132,9 @@ namespace Ubeer.DAL.Depot
             commande.Parameters.Add(new SqlParameter("@Country", address.Country));
             commande.Parameters.Add(new SqlParameter("@PostalCode", address.PostalCode));
             commande.Parameters.Add(new SqlParameter("@PhoneNumber", address.PhoneNumber)); ;
+			commande.Parameters.Add(new SqlParameter("@ID", address.ID)); ;
 
-            var affectedRow = (int)commande.ExecuteNonQuery();
+			var affectedRow = (int)commande.ExecuteNonQuery();
 
             if (affectedRow != 1)
             {

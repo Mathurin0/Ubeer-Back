@@ -8,9 +8,9 @@ namespace Ubeer.DTO.DTO
 {
 	public class Stock_DTO
 	{
-		public int IdBrewery { get; set; }
+		public string IdBrewery { get; set; }
 
-		public int IdBeer { get; set; }
+		public string IdBeer { get; set; }
 
 		public int Quantity { get; set; }
 

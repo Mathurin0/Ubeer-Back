@@ -10,20 +10,20 @@ namespace Ubeer.DAL.Depot
         public override List<Command_DAL> GetAll()
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "SELECT ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM Address";
+            commande.CommandText = "SELECT ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM Command";
             var reader = commande.ExecuteReader();
 
             var commandList = new List<Command_DAL>();
 
             while (reader.Read())
             {
-                var command = new Command_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
-                                        reader.GetInt32(2),
-                                        reader.GetDateTime(2),
-                                        reader.GetDateTime(3),
-                                        reader.GetDateTime(4),
-                                        reader.GetDateTime(5)
+                var command = new Command_DAL(reader.GetGuid(0).ToString(),
+                                        reader.GetGuid(1).ToString(),
+                                        reader.GetGuid(2).ToString(),
+                                        reader.GetDateTime(3), 
+                                        reader.GetDateTime(4), 
+                                        reader.GetDateTime(5), 
+                                        reader.GetDateTime(6)
                                         );
 
                 commandList.Add(command);
@@ -34,24 +34,24 @@ namespace Ubeer.DAL.Depot
             return commandList;
         }
 
-        public override Command_DAL GetByID(int ID)
+        public override Command_DAL GetByID(string ID)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM command WHERE ID=@ID";
+            commande.CommandText = "SELECT ID, IdAddress, IdUser, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM Command WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
             Command_DAL command;
             if (reader.Read())
             {
-                command = new Command_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
-                                        reader.GetInt32(2),
-                                        reader.GetDateTime(2),
+                command = new Command_DAL(reader.GetGuid(0).ToString(),
+                                        reader.GetGuid(1).ToString(),
+                                        reader.GetGuid(2).ToString(),
                                         reader.GetDateTime(3),
                                         reader.GetDateTime(4),
-										reader.GetDateTime(5)
+                                        reader.GetDateTime(5),
+										reader.GetDateTime(6)
 										);
             }
             else
@@ -64,11 +64,11 @@ namespace Ubeer.DAL.Depot
             return command;
         }
 
-        public List<Command_DAL> GetByIdUser(int ID_User)
+        public List<Command_DAL> GetByIdUser(string ID_User)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM command WHERE IdUser=@IdUser";
+            commande.CommandText = "SELECT ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM Command WHERE IdUser=@IdUser";
             commande.Parameters.Add(new SqlParameter("@IdUser", ID_User));
             var reader = commande.ExecuteReader();
 
@@ -76,13 +76,13 @@ namespace Ubeer.DAL.Depot
 
             while (reader.Read())
             {
-                var item = new Command_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
-                                        reader.GetInt32(2),
-                                        reader.GetDateTime(2),
-                                        reader.GetDateTime(3),
-                                        reader.GetDateTime(4),
-										reader.GetDateTime(5)
+                var item = new Command_DAL(reader.GetGuid(0).ToString(),
+                                        reader.GetGuid(1).ToString(),
+                                        reader.GetGuid(2).ToString(),
+                                        reader.GetDateTime(3), 
+                                        reader.GetDateTime(4), 
+                                        reader.GetDateTime(5), 
+                                        reader.GetDateTime(6)
 										);
                 commandUserlist.Add(item);
             }
@@ -92,11 +92,11 @@ namespace Ubeer.DAL.Depot
             return commandUserlist;
         }
 
-        public List<Command_DAL> GetByIdAddress(int ID_Address)
+        public List<Command_DAL> GetByIdAddress(string ID_Address)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM command WHERE IdAddress=@IdAddress";
+            commande.CommandText = "SELECT ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate FROM Command WHERE IdAddress=@IdAddress";
             commande.Parameters.Add(new SqlParameter("@IdAddress", ID_Address));
             var reader = commande.ExecuteReader();
 
@@ -104,13 +104,13 @@ namespace Ubeer.DAL.Depot
 
             while (reader.Read())
             {
-                var item = new Command_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
-                                        reader.GetInt32(2),
-                                        reader.GetDateTime(2),
+                var item = new Command_DAL(reader.GetGuid(0).ToString(),
+                                        reader.GetGuid(1).ToString(),
+                                        reader.GetGuid(2).ToString(),
                                         reader.GetDateTime(3),
                                         reader.GetDateTime(4),
-										reader.GetDateTime(5)
+                                        reader.GetDateTime(5),
+										reader.GetDateTime(6)
 										);
                 commandAddresslist.Add(item);
             }
@@ -125,16 +125,37 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO Command (orderdate, estimateddeliverydate, realdeliverydate, LastUpdate) VALUES (@OrderDate, @EstimatedDeliveryDate, @RealDeliveryDate, GETDATE()); SELECT SCOPE_IDENTITY()";
-            commande.Parameters.Add(new SqlParameter("@OrderDate", command.OrderDate));
-            commande.Parameters.Add(new SqlParameter("@EstimatedDeliveryDate", command.EstimatedDeliveryDate));
+			//Création de l'ID
+			string ID = "";
+			while (ID == "")
+			{
+				Guid guid = Guid.NewGuid();
+				ID = guid.ToString();
+				commande.CommandText = $"SELECT COUNT(ID) FROM Command WHERE ID = '{ID}'";
+				int isIdAlreadyUsed = Convert.ToInt32(commande.ExecuteNonQuery());
+
+				if (isIdAlreadyUsed > 0)
+				{
+					ID = "";
+				}
+			}
+
+			commande.CommandText = "INSERT INTO Command (ID, IdUser, IdAddress, orderdate, estimateddeliverydate, realdeliverydate, LastUpdate) VALUES (@ID, @IdUser, @IdAddress, @OrderDate, @EstimatedDeliveryDate, @RealDeliveryDate, GETDATE()); SELECT SCOPE_IDENTITY()";
+			commande.Parameters.Add(new SqlParameter("@ID", ID));
+			commande.Parameters.Add(new SqlParameter("@IdUser", command.IdUser));
+			commande.Parameters.Add(new SqlParameter("@IdAddress", command.IdAddress));
+			commande.Parameters.Add(new SqlParameter("@OrderDate", command.OrderDate));
             commande.Parameters.Add(new SqlParameter("@RealDeliveryDate", command.RealDeliveryDate));
+			commande.Parameters.Add(new SqlParameter("@EstimatedDeliveryDate", command.EstimatedDeliveryDate));
 
-            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+			int nbLinesAffected = commande.ExecuteNonQuery();
 
-            command.ID = ID;
+			if (nbLinesAffected != 1)
+			{
+				throw new Exception($"{nbLinesAffected} lignes affectées dans la table Command");
+			}
 
-            DetruireConnexionEtCommande();
+			DetruireConnexionEtCommande();
 
             return command;
         }
@@ -143,12 +164,13 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE Address SET orderdate=@OrderDate, estimateddeliverydate=@EstimatedDeliveryDate, realdeliverydate=@RealDeliveryDate, LastUpdate=GETDATE() WHERE ID=@ID";
+            commande.CommandText = "UPDATE Command SET OrderDate=@OrderDate, EstimatedDeliveryDate=@EstimatedDeliveryDate, RealDeliveryDate=@RealDeliveryDate, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@OrderDate", command.OrderDate));
             commande.Parameters.Add(new SqlParameter("@EstimatedDeliveryDate", command.EstimatedDeliveryDate));
             commande.Parameters.Add(new SqlParameter("@RealDeliveryDate", command.RealDeliveryDate));
+			commande.Parameters.Add(new SqlParameter("@ID", command.ID));
 
-            var affectedRow = (int)commande.ExecuteNonQuery();
+			var affectedRow = (int)commande.ExecuteNonQuery();
 
             if (affectedRow != 1)
             {
@@ -164,7 +186,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "DELETE FROM command WHERE ID=@ID";
+            commande.CommandText = "DELETE FROM Command WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", command.ID));
             var affectedRow = commande.ExecuteNonQuery();
 

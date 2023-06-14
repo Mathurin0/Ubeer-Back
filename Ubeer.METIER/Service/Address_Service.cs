@@ -21,25 +21,25 @@ namespace Ubeer.METIER.Service
 			var depot = new AddressDepot_DAL();
 			foreach (var item in depot.GetAll())
 			{
-				result.Add(new Address_METIER(item.ID, item.IdUser, item.Libelle, item.Address, item.AddressComplement, item.City, item.Region, item.PostalCode, item.Country, item.PhoneNumber, item.Creation, item.LastUpdate));
+				result.Add(new Address_METIER(item.ID, item.IdUser, item.Libelle, item.Address, item.AddressComplement, item.City, item.Region, item.Country, item.PostalCode, item.PhoneNumber, item.Creation, item.LastUpdate));
 			}
 			return result;
 		}
 
 		#endregion
 		#region GetByID
-		public Address_METIER GetByID(int id)
+		public Address_METIER GetByID(string id)
 		{
 			var depot = new AddressDepot_DAL();
 			var address = depot.GetByID(id);
-			return new Address_METIER(address.ID, address.IdUser, address.Libelle, address.Address, address.AddressComplement, address.City, address.Region, address.PostalCode, address.Country, address.PhoneNumber, address.Creation, address.LastUpdate);
+			return new Address_METIER(address.ID, address.IdUser, address.Libelle, address.Address, address.AddressComplement, address.City, address.Region, address.Country, address.PostalCode, address.PhoneNumber, address.Creation, address.LastUpdate);
 		}
 		#endregion
 
 		#region Insert
 		public void Insert(Address_DTO input)
 		{
-			var address = new Address_DAL(input.IdUser, input.Libelle, input.Address, input.AddressComplement, input.City, input.Region, input.PostalCode, input.Country, input.PhoneNumber, input.Creation, input.LastUpdate);
+			var address = new Address_DAL(input.IdUser, input.Libelle, input.Address, input.AddressComplement, input.City, input.Region, input.Country, input.PostalCode, input.PhoneNumber, input.Creation, input.LastUpdate);
 			var depot = new AddressDepot_DAL();
 			depot.Insert(address);
 		}
@@ -48,14 +48,14 @@ namespace Ubeer.METIER.Service
 		#region Update
 		public void Update(Address_DTO input)
 		{
-			var address = new Address_DAL(input.IdUser, input.Libelle, input.Address, input.AddressComplement, input.City, input.Region, input.PostalCode, input.Country, input.PhoneNumber, input.Creation, input.LastUpdate);
+			var address = new Address_DAL(input.IdUser, input.Libelle, input.Address, input.AddressComplement, input.City, input.Region, input.Country, input.PostalCode, input.PhoneNumber, input.Creation, input.LastUpdate);
 			var depot = new AddressDepot_DAL();
 			depot.Update(address);
 		}
 		#endregion
 
 		#region Delete
-		public void Delete(int id)
+		public void Delete(string id)
 		{
 			Address_DAL address;
 			AddressDepot_DAL depot = new();

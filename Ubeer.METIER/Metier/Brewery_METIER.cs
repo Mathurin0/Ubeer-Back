@@ -10,13 +10,13 @@ namespace Ubeer.METIER.Metier
 {
     public class Brewery_METIER
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Code { get; set; }
 
         public string Libelle { get; set; }
 
-        public string PostalCode { get; set; }
+        public int PostalCode { get; set; }
 
         public string City { get; set; }
 
@@ -28,9 +28,9 @@ namespace Ubeer.METIER.Metier
 
 		public string Image { get; set; }
 
-		public Brewery_METIER(int id, string code, string libelle, string postalCode, string city, string websiteUrl, DateTime creation, DateTime lastUpdate, string image) => (Id, Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) = (id, code, libelle, postalCode, city, websiteUrl, creation, lastUpdate, image);
+		public Brewery_METIER(string id, string code, string libelle, int postalCode, string city, string websiteUrl, DateTime creation, DateTime lastUpdate, string image) => (Id, Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) = (id, code, libelle, postalCode, city, websiteUrl, creation, lastUpdate, image);
 
-		public Brewery_METIER(string code, string libelle, string postalCode, string city, string websiteUrl, DateTime creation, DateTime lastUpdate, string image) => (Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) = (code, libelle, postalCode, city, websiteUrl, creation, lastUpdate, image);
+		public Brewery_METIER(string code, string libelle, int postalCode, string city, string websiteUrl, DateTime creation, DateTime lastUpdate, string image) => (Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) = (code, libelle, postalCode, city, websiteUrl, creation, lastUpdate, image);
 
 	}
 }

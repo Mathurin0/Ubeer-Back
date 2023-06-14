@@ -10,9 +10,9 @@ namespace Ubeer.METIER.Metier
 {
 	public class Adress_METIER
 	{
-		public int Id { get; set; }
+		public string Id { get; set; }
 
-		public int IdUser { get; set; }
+		public string IdUser { get; set; }
 
 		public string Libelle { get; set; }
 
@@ -30,8 +30,8 @@ namespace Ubeer.METIER.Metier
 
 		public string PhoneNumber { get; set; }
 
-		public Adress_METIER(int id, int idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber) => (Id, IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber) = (id, idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber);
+		public Adress_METIER(string id, string idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber) => (Id, IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber) = (id, idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber);
 
-		public Adress_METIER(int idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber) => (IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber) = (idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber);
+		public Adress_METIER(string idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber) => (IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber) = (idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber);
 	}
 }

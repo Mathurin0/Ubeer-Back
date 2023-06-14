@@ -10,9 +10,9 @@ namespace Ubeer.METIER.Metier
 {
     public class Beer_METIER
 	{
-        public int ID { get; set; }
+        public string ID { get; set; }
 
-        public int IdStyle { get; set; }
+        public string IdStyle { get; set; }
 
         public string Libelle { get; set; }
 
@@ -26,8 +26,8 @@ namespace Ubeer.METIER.Metier
 
 		public string Image { get; set; }
 
-		public Beer_METIER(int id, int idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (ID, IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (id, idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
-		public Beer_METIER(int idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
+		public Beer_METIER(string id, string idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (ID, IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (id, idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
+		public Beer_METIER(string idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
 
 	}
 }

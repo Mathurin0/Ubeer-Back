@@ -22,8 +22,8 @@ namespace Ubeer.DAL.Depot
 
 			while (reader.Read())
 			{
-				var stock = new Stock_DAL(reader.GetInt32(0),
-											reader.GetInt32(1),
+				var stock = new Stock_DAL(reader.GetGuid(0).ToString(),
+											reader.GetGuid(1).ToString(),
 											reader.GetInt32(2),
 											reader.GetDateTime(3));
 
@@ -36,16 +36,16 @@ namespace Ubeer.DAL.Depot
 		}
 		#endregion
 
-		public override Stock_DAL GetByID(int ID)
+		public override Stock_DAL GetByID(string ID)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Stock_DAL GetByIdBeerAndIdBrewery(int idBeer, int idBrewery)
+		public Stock_DAL GetByIdBeerAndIdBrewery(string idBeer, string idBrewery)
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "Select Quatity, LastUpdate from Stock Where IdBrewery=@IdBrewery AND IdBeer=@IdBeer";
+			commande.CommandText = "Select Quantity, LastUpdate From Stock Where IdBrewery=@IdBrewery AND IdBeer=@IdBeer";
 			commande.Parameters.Add(new SqlParameter("@IdBeer", idBeer));
 			commande.Parameters.Add(new SqlParameter("@IdBrewery", idBrewery));
 			var reader = commande.ExecuteReader();
@@ -53,7 +53,7 @@ namespace Ubeer.DAL.Depot
 			var stock = new Stock_DAL(idBrewery,
 									idBeer,
 									reader.GetInt32(0),
-											reader.GetDateTime(3));
+									reader.GetDateTime(1));
 
 			DetruireConnexionEtCommande();
 
@@ -61,7 +61,7 @@ namespace Ubeer.DAL.Depot
 		}
 
 		#region GetByIdBeer
-		public Stock_DAL GetByIdBeer(int IdBeer)
+		public Stock_DAL GetByIdBeer(string IdBeer)
 		{
 			CreerConnexionEtCommande();
 
@@ -72,8 +72,8 @@ namespace Ubeer.DAL.Depot
 			Stock_DAL stock;
 			if (reader.Read())
 			{
-				stock = new Stock_DAL(reader.GetInt32(0),
-											reader.GetInt32(1),
+				stock = new Stock_DAL(reader.GetGuid(0).ToString(),
+											reader.GetGuid(1).ToString(),
 											reader.GetInt32(2),
 											reader.GetDateTime(3));
 			}
@@ -89,7 +89,7 @@ namespace Ubeer.DAL.Depot
 		#endregion
 
 		#region GetByIdBrewery
-		public List<Stock_DAL> GetByIdBrewery(int IdBrewery)
+		public List<Stock_DAL> GetByIdBrewery(string IdBrewery)
 		{
 			CreerConnexionEtCommande();
 
@@ -99,8 +99,8 @@ namespace Ubeer.DAL.Depot
 			var result = new List<Stock_DAL>();
 			while (reader.Read())
 			{
-				result.Add(new Stock_DAL(reader.GetInt32(0),
-										reader.GetInt32(1),
+				result.Add(new Stock_DAL(reader.GetGuid(0).ToString(),
+										reader.GetGuid(1).ToString(),
 										reader.GetInt32(2),
 										reader.GetDateTime(3)));
 			}
@@ -120,6 +120,13 @@ namespace Ubeer.DAL.Depot
 			commande.Parameters.Add(new SqlParameter("@IdBrewery", stock.IdBrewery));
 			commande.Parameters.Add(new SqlParameter("@IdBeer", stock.IdBeer));
 			commande.Parameters.Add(new SqlParameter("@Quantity", stock.Quantity));
+
+			int nombreDeLignesAffectees = commande.ExecuteNonQuery();
+
+			if (nombreDeLignesAffectees != 1)
+			{
+				throw new Exception($"{nombreDeLignesAffectees} lignes insérées dans la table Stock");
+			}
 
 			DetruireConnexionEtCommande();
 

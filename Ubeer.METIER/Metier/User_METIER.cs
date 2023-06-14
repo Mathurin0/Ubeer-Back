@@ -10,7 +10,7 @@ namespace Ubeer.METIER.Metier
 {
     public class User_METIER
     {
-        public int Id {  get; set; }
+        public string Id {  get; set; }
         
         public string UserName { get; set; }
 
@@ -21,7 +21,7 @@ namespace Ubeer.METIER.Metier
 
 		public DateTime LastUpdate { get; set; }
 
-		public User_METIER(int id, string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (Id, UserName, Password, Email, MemberShipDate, LastUpdate) = (id, userName, password, email, memberShipDate, lastUpdate);
+		public User_METIER(string id, string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (Id, UserName, Password, Email, MemberShipDate, LastUpdate) = (id, userName, password, email, memberShipDate, lastUpdate);
 
 		public User_METIER(string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (UserName, Password, Email, MemberShipDate, LastUpdate) = (userName, password, email, memberShipDate, lastUpdate);
 

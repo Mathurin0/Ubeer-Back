@@ -11,15 +11,15 @@ namespace Ubeer.DAL.Depot
         public override List<Beer_DAL> GetAll()
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "SELECT ID, StyleId, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image FROM Beer";
+            commande.CommandText = "SELECT ID, IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image FROM Beer";
             var reader = commande.ExecuteReader();
 
             var beerList = new List<Beer_DAL>();
 
             while (reader.Read())
             {
-                var item = new Beer_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
+                var item = new Beer_DAL(reader.GetGuid(0).ToString(),
+                                        reader.GetGuid(1).ToString(),
                                         reader.GetString(2),
                                         reader.GetFloat(3),
                                         reader.GetFloat(4),
@@ -36,19 +36,19 @@ namespace Ubeer.DAL.Depot
             return beerList;
         }
 
-        public override Beer_DAL GetByID(int ID)
+        public override Beer_DAL GetByID(string ID)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, StyleId, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image FROM Beer WHERE ID=@ID";
+            commande.CommandText = "SELECT ID, IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image FROM Beer WHERE ID=@ID";
             commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
             Beer_DAL beer;
             if (reader.Read())
             {
-                beer = new Beer_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
+                beer = new Beer_DAL(reader.GetGuid(0).ToString(),
+                                        reader.GetGuid(1).ToString(),
                                         reader.GetString(2),
                                         reader.GetFloat(3),
                                         reader.GetFloat(4),
@@ -71,17 +71,37 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO Beer (libelle, alcoholvolume, unitprice, Creation, LastUpdate, Image) VALUES (@Libelle, @AlcoholVolume, @UnitPrice, GETDATE(), GETDATE(), @Image) SELECT SCOPE_IDENTITY()";
+			//Création de l'ID
+			string ID = "";
+			while (ID == "")
+			{
+				Guid guid = Guid.NewGuid();
+				ID = guid.ToString();
+				commande.CommandText = $"SELECT COUNT(ID) FROM Beer WHERE ID = '{ID}'";
+				int isIdAlreadyUsed = Convert.ToInt32(commande.ExecuteNonQuery());
+
+				if (isIdAlreadyUsed > 0)
+				{
+					ID = "";
+				}
+			}
+
+			commande.CommandText = "INSERT INTO Beer (ID, IdStyle, libelle, alcoholvolume, unitprice, Creation, LastUpdate, Image) VALUES (@ID, @IdStyle, @Libelle, @AlcoholVolume, @UnitPrice, GETDATE(), GETDATE(), @Image) SELECT SCOPE_IDENTITY()";
             commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", beer.Libelle));
             commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
             commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@UnitPrice", beer.UnitPrice));
 			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", beer.Image));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@IdStyle", beer.IdStyle));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", ID));
 
-			var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+			int nbLinesAffected = commande.ExecuteNonQuery();
 
-            beer.ID = ID;
+			if (nbLinesAffected != 1)
+			{
+				throw new Exception($"{nbLinesAffected} lignes affectées dans la table Beer");
+			}
 
-            DetruireConnexionEtCommande();
+			DetruireConnexionEtCommande();
 
             return beer;
         }

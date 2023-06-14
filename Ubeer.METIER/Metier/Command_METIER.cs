@@ -10,11 +10,11 @@ namespace Ubeer.METIER.Metier
 {
     public class Command_METIER
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public int IdUser { get; set; }
+        public string IdUser { get; set; }
 
-        public int IdAddress { get; set; }
+        public string IdAddress { get; set; }
 
         public DateTime OrderDate { get; set; }
 
@@ -24,8 +24,8 @@ namespace Ubeer.METIER.Metier
 
 		public DateTime LastUpdate { get; set; }
 
-		public Command_METIER(int id, int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (Id, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (id, idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
+		public Command_METIER(string id, string idUser, string idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (Id, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (id, idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
 
-		public Command_METIER(int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
+		public Command_METIER(string idUser, string idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
 	}
 }

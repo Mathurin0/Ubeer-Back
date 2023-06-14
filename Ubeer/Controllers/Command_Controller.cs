@@ -34,7 +34,7 @@ namespace Ubeer.Controllers
 
 		#region GetByIdUser
 		//[HttpGet("{idUser}")]			TODO
-		//public List<Command_DTO> GetByIdUser(int idUser)
+		//public List<Command_DTO> GetByIdUser(string idUser)
 		//{
 		//	return service.GetByIdUser(idUser).Select(item => new Command_DTO
 		//	{
@@ -51,7 +51,7 @@ namespace Ubeer.Controllers
 
 		#region GetByIdAddress
 		//[HttpGet("{idAddress}")]		TODO
-		//public List<Command_DTO> GetByIdAddress(int idAddress)
+		//public List<Command_DTO> GetByIdAddress(string idAddress)
 		//{
 		//	return service.GetByIdAddress(idAddress).Select(item => new Command_DTO
 		//	{
@@ -84,7 +84,7 @@ namespace Ubeer.Controllers
 
 		#region Delete
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public void Delete(string id)
 		{
 			service.Delete(id);
 		}

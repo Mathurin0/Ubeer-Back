@@ -8,9 +8,9 @@ namespace Ubeer.DAL.DAL
 {
     public class Beer_DAL
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
 
-        public int IdStyle { get; set; }
+        public string IdStyle { get; set; }
 
         public string Libelle { get; set; }
 
@@ -24,8 +24,8 @@ namespace Ubeer.DAL.DAL
 
         public string Image { get; set; }
 
-		public Beer_DAL(int id, int idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (ID, IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (id, idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
-        public Beer_DAL(int idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
+		public Beer_DAL(string id, string idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (ID, IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (id, idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
+        public Beer_DAL(string idStyle, string libelle, float alcoholVolume, float unitPrice, DateTime creation, DateTime lastUpdate, string image) => (IdStyle, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image) = (idStyle, libelle, alcoholVolume, unitPrice, creation, lastUpdate, image);
 
     }
 }

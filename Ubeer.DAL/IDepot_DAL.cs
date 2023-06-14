@@ -12,7 +12,7 @@ namespace Ubeer.DAL
 
         List<Type_DAL> GetAll();
 
-        Type_DAL GetByID(int ID);
+        Type_DAL GetByID(string ID);
 
         Type_DAL Insert(Type_DAL item);
 

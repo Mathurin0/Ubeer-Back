@@ -8,7 +8,7 @@ namespace Ubeer.DAL.DAL
 {
     public class User_DAL
     {
-        public int Id {  get; set; }
+        public string Id {  get; set; }
         
         public string UserName { get; set; }
 
@@ -19,7 +19,7 @@ namespace Ubeer.DAL.DAL
 
 		public DateTime LastUpdate { get; set; }
 
-		public User_DAL(int id, string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (Id, UserName, Password, Email, MemberShipDate, LastUpdate) = (id, userName, password, email, memberShipDate, lastUpdate);
+		public User_DAL(string id, string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (Id, UserName, Password, Email, MemberShipDate, LastUpdate) = (id, userName, password, email, memberShipDate, lastUpdate);
 
         public User_DAL(string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (UserName, Password, Email, MemberShipDate, LastUpdate) = (userName, password, email, memberShipDate, lastUpdate);
 

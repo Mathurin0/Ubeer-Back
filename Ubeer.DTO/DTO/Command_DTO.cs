@@ -8,11 +8,11 @@ namespace Ubeer.DTO.DTO
 {
 	public class Command_DTO
 	{
-		public int ID { get; set; }
+		public string ID { get; set; }
 
-		public int IdUser { get; set; }
+		public string IdUser { get; set; }
 
-		public int IdAddress { get; set; }
+		public string IdAddress { get; set; }
 
 		public DateTime OrderDate { get; set; }
 

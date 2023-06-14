@@ -8,9 +8,9 @@ namespace Ubeer.DTO.DTO
 {
 	public class Address_DTO
 	{
-		public int ID { get; set; }
+		public string ID { get; set; }
 
-		public int IdUser { get; set; }
+		public string IdUser { get; set; }
 
 		public string Libelle { get; set; }
 
@@ -24,7 +24,7 @@ namespace Ubeer.DTO.DTO
 
 		public string Country { get; set; }
 
-		public string PostalCode { get; set; }
+		public int PostalCode { get; set; }
 
 		public string PhoneNumber { get; set; }
 

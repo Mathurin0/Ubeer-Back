@@ -12,11 +12,12 @@ namespace Ubeer.METIER.Service
 {
 	public class BeerStyle_Service
 	{
+		private readonly BeerStyleDepot_DAL depot = new BeerStyleDepot_DAL();
+
 		#region GetAll
 		public List<BeerStyle_METIER> GetAll()
 		{
 			var result = new List<BeerStyle_METIER>();
-			var depot = new BeerStyleDepot_DAL();
 			foreach (var item in depot.GetAll())
 			{
 				result.Add(new BeerStyle_METIER(item.ID, item.Libelle, item.Creation, item.LastUpdate));
@@ -26,9 +27,8 @@ namespace Ubeer.METIER.Service
 
 		#endregion
 		#region GetByID
-		public BeerStyle_METIER GetByID(int id)
+		public BeerStyle_METIER GetByID(string id)
 		{
-			var depot = new BeerStyleDepot_DAL();
 			var beerStyle = depot.GetByID(id);
 			return new BeerStyle_METIER(beerStyle.ID, beerStyle.Libelle, beerStyle.Creation, beerStyle.LastUpdate);
 		}
@@ -37,8 +37,7 @@ namespace Ubeer.METIER.Service
 		#region Insert
 		public void Insert(BeerStyle_DTO input)
 		{
-			var beerStyle = new BeerStyle_DAL(input.ID, input.Libelle, input.Creation, input.LastUpdate);
-			var depot = new BeerStyleDepot_DAL();
+			var beerStyle = new BeerStyle_DAL(input.Libelle, input.Creation, input.LastUpdate);
 			depot.Insert(beerStyle);
 		}
 		#endregion
@@ -47,16 +46,14 @@ namespace Ubeer.METIER.Service
 		public void Update(BeerStyle_DTO input)
 		{
 			var beerStyle = new BeerStyle_DAL(input.ID, input.Libelle, input.Creation, input.LastUpdate);
-			var depot = new BeerStyleDepot_DAL();
 			depot.Update(beerStyle);
 		}
 		#endregion
 
 		#region Delete
-		public void Delete(int id)
+		public void Delete(string id)
 		{
 			BeerStyle_DAL beerStyle;
-			BeerStyleDepot_DAL depot = new();
 			beerStyle = depot.GetByID(id);
 			depot.Delete(beerStyle);
 		}

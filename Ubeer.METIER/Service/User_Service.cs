@@ -26,7 +26,7 @@ namespace Ubeer.METIER.Service
 
 		#endregion
 		#region GetByID
-		public User_METIER GetByID(int id)
+		public User_METIER GetByID(string id)
 		{
 			var depot = new UserDepot_DAL();
 			var user = depot.GetByID(id);
@@ -53,7 +53,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region Delete
-		public void Delete(int id)
+		public void Delete(string id)
 		{
 			User_DAL user;
 			UserDepot_DAL depot = new();

@@ -8,13 +8,13 @@ namespace Ubeer.DTO.DTO
 {
 	public class Brewery_DTO
 	{
-		public int ID { get; set; }
+		public string ID { get; set; }
 
 		public string Code { get; set; }
 
 		public string Libelle { get; set; }
 
-		public string PostalCode { get; set; }
+		public int PostalCode { get; set; }
 
 		public string City { get; set; }
 

@@ -8,7 +8,7 @@ namespace Ubeer.DTO.DTO
 {
 	public class User_DTO
 	{
-		public int Id { get; set; }
+		public string Id { get; set; }
 
 		public string UserName { get; set; }
 

@@ -8,7 +8,7 @@ namespace Ubeer.DTO.DTO
 {
 	public class BeerStyle_DTO
 	{
-		public int ID { get; set; }
+		public string ID { get; set; }
 
 		public string Libelle { get; set; }
 

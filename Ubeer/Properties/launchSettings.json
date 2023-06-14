@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Ubeer": {
+    "Ubeer.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

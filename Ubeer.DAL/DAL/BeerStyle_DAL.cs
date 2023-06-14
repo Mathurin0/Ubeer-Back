@@ -8,7 +8,7 @@ namespace Ubeer.DAL.DAL
 {
     public class BeerStyle_DAL
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         public string Libelle { get; set; }
 
@@ -16,7 +16,7 @@ namespace Ubeer.DAL.DAL
 
 		public DateTime LastUpdate { get; set; }
 
-		public BeerStyle_DAL(int id, string libelle, DateTime creation, DateTime lastUpdate) => (ID, Libelle, Creation, LastUpdate) = (id, libelle, creation, lastUpdate);
+		public BeerStyle_DAL(string id, string libelle, DateTime creation, DateTime lastUpdate) => (ID, Libelle, Creation, LastUpdate) = (id, libelle, creation, lastUpdate);
         public BeerStyle_DAL(string libelle, DateTime creation, DateTime lastUpdate) => (Libelle, Creation, LastUpdate) = (libelle, creation, lastUpdate);
 
     }

@@ -17,7 +17,7 @@ namespace Ubeer.DAL.Depot
 
             while (reader.Read())
             {
-                var item = new BeerStyle_DAL(reader.GetInt32(0),
+                var item = new BeerStyle_DAL(reader.GetGuid(0).ToString(),
                                         reader.GetString(1),
 										reader.GetDateTime(2),
 										reader.GetDateTime(3)
@@ -31,7 +31,7 @@ namespace Ubeer.DAL.Depot
             return styleList;
         }
 
-        public override BeerStyle_DAL GetByID(int ID)
+        public override BeerStyle_DAL GetByID(string ID)
         {
             CreerConnexionEtCommande();
 
@@ -42,7 +42,7 @@ namespace Ubeer.DAL.Depot
             BeerStyle_DAL style;
             if (reader.Read())
             {
-                style = new BeerStyle_DAL(reader.GetInt32(0),
+                style = new BeerStyle_DAL(reader.GetGuid(0).ToString(),
                                         reader.GetString(1),
 										reader.GetDateTime(2),
 										reader.GetDateTime(3)
@@ -62,14 +62,33 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO BeerStyle (libelle, Creation, LastUpdate) VALUES (@Libelle, GETDATE(), GETSATE()); SELECT SCOPE_IDENTITY()";
+			//Création de l'ID
+			string ID = "";
+			while (ID == "")
+			{
+				Guid guid = Guid.NewGuid();
+				ID = guid.ToString();
+				commande.CommandText = $"SELECT COUNT(ID) FROM BeerStyle WHERE ID = '{ID}'";
+				int isIdAlreadyUsed = Convert.ToInt32(commande.ExecuteNonQuery());
+
+				if (isIdAlreadyUsed > 0)
+				{
+					ID = "";
+				}
+			}
+
+			commande.CommandText = "INSERT INTO BeerStyle (ID, libelle, Creation, LastUpdate) VALUES (@ID, @Libelle, GETDATE(), GETDATE());";
             commande.Parameters.Add(new SqlParameter("@Libelle", style.Libelle));
+			commande.Parameters.Add(new SqlParameter("@ID", ID));
 
-            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+            int nbLinesAffected = commande.ExecuteNonQuery();
 
-            style.ID = ID;
+            if (nbLinesAffected != 1) 
+            {
+                throw new Exception($"{nbLinesAffected} lignes affectées dans la table BeerStyle");
+            }
 
-            DetruireConnexionEtCommande();
+			DetruireConnexionEtCommande();
 
             return style;
         }
@@ -78,14 +97,15 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE BeerStyle SET libelle=@Libelle, LastUpdate=GETDATE() WHERE ID=@ID";
+			commande.CommandText = "UPDATE BeerStyle SET libelle=@Libelle, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@Libelle", style.Libelle));
+			commande.Parameters.Add(new SqlParameter("@ID", style.ID));
 
-            var affectedRow = (int)commande.ExecuteNonQuery();
+			var affectedRow = (int)commande.ExecuteNonQuery();
 
             if (affectedRow != 1)
             {
-                throw new Exception($"Unable to update beerStyle ID : {style.ID}");
+                throw new Exception($"Unable to insert beerStyle ID : {style.ID}");
             }
 
             DetruireConnexionEtCommande();

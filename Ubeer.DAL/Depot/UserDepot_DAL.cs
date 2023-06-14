@@ -10,14 +10,14 @@ namespace Ubeer.DAL.Depot
         public override List<User_DAL> GetAll()
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate, LastUpdate FROM User";
+            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate, LastUpdate FROM [User]";
             var reader = commande.ExecuteReader();
 
             var userList = new List<User_DAL>();
 
             while (reader.Read())
             {
-                var user = new User_DAL(reader.GetInt32(0),
+                var user = new User_DAL(reader.GetGuid(0).ToString(),
                                   reader.GetString(1),
                                   reader.GetString(2),
                                   reader.GetString(3),
@@ -33,18 +33,18 @@ namespace Ubeer.DAL.Depot
             return userList;
         }
 
-        public override User_DAL GetByID(int ID)
+        public override User_DAL GetByID(string ID)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate, LastUpdate FROM User WHERE ID=@ID";
+            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate, LastUpdate FROM [User] WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
             User_DAL user;
             if (reader.Read())
             {
-                user = new User_DAL(reader.GetInt32(0),
+                user = new User_DAL(reader.GetGuid(0).ToString(),
                               reader.GetString(1),
                               reader.GetString(2),
                               reader.GetString(3),
@@ -54,7 +54,7 @@ namespace Ubeer.DAL.Depot
             }
             else
             {
-                throw new Exception($"No occurrence of ID {ID} in User table");
+                throw new Exception($"No occurrence of ID {ID} in [User] table");
             }
 
             DetruireConnexionEtCommande();
@@ -66,16 +66,35 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO User (username, password, email, membershipdate, LastUpdate) VALUES (@UserName, @Password, @email, GETDATE(), GETDATE()); SELECT SCOPE_IDENTITY()";
+			//Création de l'ID
+			string ID = "";
+			while (ID == "")
+			{
+				Guid guid = Guid.NewGuid();
+				ID = guid.ToString();
+				commande.CommandText = $"SELECT COUNT(ID) FROM [User] WHERE ID = '{ID}'";
+				int isIdAlreadyUsed = Convert.ToInt32(commande.ExecuteNonQuery());
+
+				if (isIdAlreadyUsed > 0)
+				{
+					ID = "";
+				}
+			}
+
+			commande.CommandText = "INSERT INTO [User] (ID, username, password, email, membershipdate, LastUpdate) VALUES (@ID, @UserName, @Password, @email, GETDATE(), GETDATE()); SELECT SCOPE_IDENTITY()";
             commande.Parameters.Add(new SqlParameter("@UserName", user.UserName));
             commande.Parameters.Add(new SqlParameter("@Password", user.Password));
             commande.Parameters.Add(new SqlParameter("@Email", user.Email));
+			commande.Parameters.Add(new SqlParameter("@ID", ID));
 
-            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+			int nbLinesAffected = commande.ExecuteNonQuery();
 
-            user.Id = ID;
+			if (nbLinesAffected != 1)
+			{
+				throw new Exception($"{nbLinesAffected} lignes affectées dans la table BeerStyle");
+			}
 
-            DetruireConnexionEtCommande();
+			DetruireConnexionEtCommande();
 
             return user;
         }
@@ -84,12 +103,13 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE User SET username=@UserName, password=@password, email=@Email, LastUpdate=GETDATE() WHERE ID=@ID";
+            commande.CommandText = "UPDATE [User] SET username=@UserName, password=@password, email=@Email, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@UserName", user.UserName));
             commande.Parameters.Add(new SqlParameter("@Password", user.Password));
             commande.Parameters.Add(new SqlParameter("@Email", user.Email));
+			commande.Parameters.Add(new SqlParameter("@ID", user.Id));
 
-            var affectedRow = (int)commande.ExecuteNonQuery();
+			var affectedRow = (int)commande.ExecuteNonQuery();
 
             if (affectedRow != 1)
             {
@@ -105,7 +125,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "DELETE FROM User WHERE ID=@ID";
+            commande.CommandText = "DELETE FROM [User] WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", user.Id));
             var affectedRow = commande.ExecuteNonQuery();
 

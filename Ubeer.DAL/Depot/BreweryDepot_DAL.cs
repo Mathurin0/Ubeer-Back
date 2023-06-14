@@ -23,10 +23,10 @@ namespace Ubeer.DAL.Depot
 
 			while (reader.Read())
 			{
-				var brewery = new Brewery_DAL(reader.GetInt32(0),
+				var brewery = new Brewery_DAL(reader.GetGuid(0).ToString(),
 											reader.GetString(1),
 											reader.GetString(2),
-											reader.GetString(3),
+											reader.GetInt32(3),
 											reader.GetString(4),
 											reader.GetString(5),
 											reader.GetDateTime(6),
@@ -43,7 +43,7 @@ namespace Ubeer.DAL.Depot
 		#endregion
 
 		#region GetByID
-		public override Brewery_DAL GetByID(int ID)
+		public override Brewery_DAL GetByID(string ID)
 		{
 			CreerConnexionEtCommande();
 
@@ -54,10 +54,10 @@ namespace Ubeer.DAL.Depot
 			Brewery_DAL brewery;
 			if (reader.Read())
 			{
-				brewery = new Brewery_DAL(reader.GetInt32(0),
+				brewery = new Brewery_DAL(reader.GetGuid(0).ToString(),
 											reader.GetString(1),
 											reader.GetString(2),
-											reader.GetString(3),
+											reader.GetInt32(3),
 											reader.GetString(4),
 											reader.GetString(5),
 											reader.GetDateTime(6),
@@ -80,17 +80,36 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "INSERT INTO Brewery (Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) VALUES (@Code, @Libelle, @PostalCode, @City, @WebsiteUrl, GETDATE(), GETDATE(), @Image); SELECT SCOPE_IDENTITY()";
+			//Création de l'ID
+			string ID = "";
+			while (ID == "")
+			{
+				Guid guid = Guid.NewGuid();
+				ID = guid.ToString();
+				commande.CommandText = $"SELECT COUNT(ID) FROM Brewery WHERE ID = '{ID}'";
+				int isIdAlreadyUsed = Convert.ToInt32(commande.ExecuteNonQuery());
+
+				if (isIdAlreadyUsed > 0)
+				{
+					ID = "";
+				}
+			}
+
+			commande.CommandText = "INSERT INTO Brewery (ID, Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) VALUES (@ID, @Code, @Libelle, @PostalCode, @City, @WebsiteUrl, GETDATE(), GETDATE(), @Image); SELECT SCOPE_IDENTITY()";
 			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Code", brewery.Code));
 			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", brewery.Libelle));
 			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@PostalCode", brewery.PostalCode));
 			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@City", brewery.City));
 			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@WebsiteUrl", brewery.WebsiteUrl));
 			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", brewery.Image));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", ID));
 
-			var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+			int nbLinesAffected = commande.ExecuteNonQuery();
 
-			brewery.ID = ID;
+			if (nbLinesAffected != 1)
+			{
+				throw new Exception($"{nbLinesAffected} lignes affectées dans la table Brewery");
+			}
 
 			DetruireConnexionEtCommande();
 

@@ -31,7 +31,7 @@ namespace Ubeer.Controllers
 
 		#region GetByIdCommand
 		//[HttpGet("{idCommand}")]				TODO
-		//public List<BeerQuantity_DTO> GetByIdCommand(int idCommand)
+		//public List<BeerQuantity_DTO> GetByIdCommand(string idCommand)
 		//{
 		//	return service.GetByIdCommand(idCommand).Select(item => new BeerQuantity_DTO
 		//	{
@@ -45,7 +45,7 @@ namespace Ubeer.Controllers
 
 		#region GetByIdBeer
 		//[HttpGet("{idBeer}")]			TODO
-		//public List<BeerQuantity_DTO> GetByIdBeer(int idBeer)
+		//public List<BeerQuantity_DTO> GetByIdBeer(string idBeer)
 		//{
 		//	return service.GetByIdBeer(idBeer).Select(item => new BeerQuantity_DTO
 		//	{
@@ -65,19 +65,11 @@ namespace Ubeer.Controllers
 		}
 		#endregion
 
-		#region Update
-		[HttpPut]
-		public void Update([FromBody] BeerQuantity_DTO item)
-		{
-			service.Update(item);
-		}
-		#endregion
-
 		#region Delete
-		[HttpDelete("{id}")]
-		public void Delete(int id)
+		[HttpDelete("{idBeer},{idCommand}")]
+		public void Delete(string idBeer, string idCommand)
 		{
-			service.Delete(id);
+			service.Delete(idBeer, idCommand);
 		}
 		#endregion
 	}

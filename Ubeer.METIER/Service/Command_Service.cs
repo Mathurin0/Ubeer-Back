@@ -27,7 +27,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByID
-		public Command_METIER GetByID(int id)
+		public Command_METIER GetByID(string id)
 		{
 			var depot = new CommandDepot_DAL();
 			var command = depot.GetByID(id);
@@ -36,7 +36,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByIdBeer
-		public List<Command_METIER> GetByIdUser(int idUser)
+		public List<Command_METIER> GetByIdUser(string idUser)
 		{
 			var result = new List<Command_METIER>();
 			var depot = new CommandDepot_DAL();
@@ -50,7 +50,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByIdService
-		public List<Command_METIER> GetByIdAddress(int idAddress)
+		public List<Command_METIER> GetByIdAddress(string idAddress)
 		{
 			var result = new List<Command_METIER>();
 			var depot = new CommandDepot_DAL();
@@ -82,7 +82,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region Delete
-		public void Delete(int id)
+		public void Delete(string id)
 		{
 			Command_DAL command;
 			CommandDepot_DAL depot = new();

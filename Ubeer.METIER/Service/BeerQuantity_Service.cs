@@ -27,7 +27,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByIdBeer
-		public List<BeerQuantity_METIER> GetByIdBeer(int idBeer)
+		public List<BeerQuantity_METIER> GetByIdBeer(string idBeer)
 		{
 			var result = new List<BeerQuantity_METIER>();
 			var depot = new BeerQuantityDepot_DAL();
@@ -41,7 +41,7 @@ namespace Ubeer.METIER.Service
 		#endregion
 
 		#region GetByIdService
-		public List<BeerQuantity_METIER> GetByIdCommand(int idService)
+		public List<BeerQuantity_METIER> GetByIdCommand(string idService)
 		{
 			var result = new List<BeerQuantity_METIER>();
 			var depot = new BeerQuantityDepot_DAL();
@@ -63,21 +63,12 @@ namespace Ubeer.METIER.Service
 		}
 		#endregion
 
-		#region Update
-		public void Update(BeerQuantity_DTO input)
-		{
-			var beerQuantity = new BeerQuantity_DAL(input.IdBeer, input.IdCommand, input.Quantity, input.LastUpdate);
-			var depot = new BeerQuantityDepot_DAL();
-			depot.Update(beerQuantity);
-		}
-		#endregion
-
 		#region Delete
-		public void Delete(int id)
+		public void Delete(string idBeer, string idCommand)
 		{
 			BeerQuantity_DAL beerQuantity;
 			BeerQuantityDepot_DAL depot = new();
-			beerQuantity = depot.GetByID(id);
+			beerQuantity = depot.GetByIdBeerAndIdCommande(idBeer, idCommand);
 			depot.Delete(beerQuantity);
 		}
 		#endregion

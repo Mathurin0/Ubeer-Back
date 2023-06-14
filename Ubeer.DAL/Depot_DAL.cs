@@ -19,7 +19,11 @@ namespace Ubeer.DAL
             var config = builder.AddJsonFile("appsettings.json", false, true).Build();
 
             ChaineDeConnexion = config.GetSection("ConnectionStrings:default").Value;
-        }
+			connexion = new SqlConnection(ChaineDeConnexion);
+			commande = new SqlCommand();
+			connexion.Close();
+			commande.Dispose();
+		}
         #endregion
 
         #region CreerConnexionEtCommande
@@ -45,7 +49,7 @@ namespace Ubeer.DAL
 
         public abstract List<Type_DAL> GetAll();
 
-        public abstract Type_DAL GetByID(int ID);
+        public abstract Type_DAL GetByID(string ID);
 
         public abstract void Delete(Type_DAL item);
 

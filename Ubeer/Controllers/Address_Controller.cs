@@ -39,7 +39,7 @@ namespace Ubeer.API.Controllers
 
 		#region GetById
 		[HttpGet("{id}")]
-		public Address_DTO GetByID(int id)
+		public Address_DTO GetByID(string id)
 		{
 			var item = service.GetByID(id);
 			return new Address_DTO()
@@ -78,7 +78,7 @@ namespace Ubeer.API.Controllers
 
 		#region Delete
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public void Delete(string id)
 		{
 			service.Delete(id);
 		}
