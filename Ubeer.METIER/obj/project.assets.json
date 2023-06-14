@@ -893,6 +893,16 @@
         "runtime": {
           "bin/placeholder/Ubeer.DAL.dll": {}
         }
+      },
+      "Ubeer.DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Ubeer.DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ubeer.DTO.dll": {}
+        }
       }
     }
   },
@@ -2453,11 +2463,17 @@
       "type": "project",
       "path": "../Ubeer.DAL/Ubeer.DAL.csproj",
       "msbuildProject": "../Ubeer.DAL/Ubeer.DAL.csproj"
+    },
+    "Ubeer.DTO/1.0.0": {
+      "type": "project",
+      "path": "../Ubeer.DTO/Ubeer.DTO.csproj",
+      "msbuildProject": "../Ubeer.DTO/Ubeer.DTO.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Ubeer.DAL >= 1.0.0"
+      "Ubeer.DAL >= 1.0.0",
+      "Ubeer.DTO >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2495,6 +2511,9 @@
           "projectReferences": {
             "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer.DAL\\Ubeer.DAL.csproj": {
               "projectPath": "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer.DAL\\Ubeer.DAL.csproj"
+            },
+            "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer.DTO\\Ubeer.DTO.csproj": {
+              "projectPath": "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer.DTO\\Ubeer.DTO.csproj"
             }
           }
         }

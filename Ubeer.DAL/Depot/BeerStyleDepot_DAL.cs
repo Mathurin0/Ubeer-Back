@@ -1,7 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Net;
 using Ubeer.DAL.DAL;
-
+using System;
+using System.Collections.Generic;
 namespace Ubeer.DAL.Depot
 {
     public class BeerStyleDepot_DAL : Depot_DAL<BeerStyle_DAL>
@@ -9,7 +10,7 @@ namespace Ubeer.DAL.Depot
         public override List<BeerStyle_DAL> GetAll()
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "SELECT ID, Libelle FROM BeerStyle";
+            commande.CommandText = "SELECT ID, Libelle, Creation, LastUpdate FROM BeerStyle";
             var reader = commande.ExecuteReader();
 
             var styleList = new List<BeerStyle_DAL>();
@@ -17,8 +18,10 @@ namespace Ubeer.DAL.Depot
             while (reader.Read())
             {
                 var item = new BeerStyle_DAL(reader.GetInt32(0),
-                                        reader.GetString(1)
-                                        );
+                                        reader.GetString(1),
+										reader.GetDateTime(2),
+										reader.GetDateTime(3)
+										);
 
                 styleList.Add(item);
             }
@@ -32,7 +35,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, Libelle FROM BeerStyle WHERE ID=@ID";
+            commande.CommandText = "SELECT ID, Libelle, Creation, LastUpdate FROM BeerStyle WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
@@ -40,8 +43,10 @@ namespace Ubeer.DAL.Depot
             if (reader.Read())
             {
                 style = new BeerStyle_DAL(reader.GetInt32(0),
-                                        reader.GetString(1)
-                                        );
+                                        reader.GetString(1),
+										reader.GetDateTime(2),
+										reader.GetDateTime(3)
+										);
             }
             else
             {
@@ -57,7 +62,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO BeerStyle (libelle) VALUES (@Libelle); SELECT SCOPE_IDENTITY()";
+            commande.CommandText = "INSERT INTO BeerStyle (libelle, Creation, LastUpdate) VALUES (@Libelle, GETDATE(), GETSATE()); SELECT SCOPE_IDENTITY()";
             commande.Parameters.Add(new SqlParameter("@Libelle", style.Libelle));
 
             var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
@@ -73,7 +78,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE BeerStyle SET libelle=@Libelle WHERE ID=@ID";
+            commande.CommandText = "UPDATE BeerStyle SET libelle=@Libelle, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@Libelle", style.Libelle));
 
             var affectedRow = (int)commande.ExecuteNonQuery();

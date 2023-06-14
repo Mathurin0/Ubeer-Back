@@ -20,9 +20,15 @@ namespace Ubeer.DAL.DAL
 
         public string WebsiteUrl { get; set; }
 
-        public Brewery_DAL(int id, string code, string libelle, string postalCode, string city, string websiteUrl ) => (ID, Code, Libelle, PostalCode, City, WebsiteUrl) = (id, code, libelle, postalCode, city, websiteUrl);
+		public DateTime Creation { get; set; }
 
-        public Brewery_DAL(string code, string libelle, string postalCode, string city, string websiteUrl) => (Code, Libelle, PostalCode, City, WebsiteUrl) = (code, libelle, postalCode, city, websiteUrl);
+		public DateTime LastUpdate { get; set; }
+
+		public string Image { get; set; }
+
+		public Brewery_DAL(int id, string code, string libelle, string postalCode, string city, string websiteUrl, DateTime creation, DateTime lastUpdate, string image) => (ID, Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) = (id, code, libelle, postalCode, city, websiteUrl, creation, lastUpdate, image);
+
+        public Brewery_DAL(string code, string libelle, string postalCode, string city, string websiteUrl, DateTime creation, DateTime lastUpdate, string image) => (Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) = (code, libelle, postalCode, city, websiteUrl, creation, lastUpdate, image);
 
     }
 }

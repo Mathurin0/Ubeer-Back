@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Ubeer.DAL.Depot
 			#region GetAll
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "SELECT ID, Code, Libelle, PostalCode, City, WebsiteUrl FROM Brewery";
+			commande.CommandText = "SELECT ID, Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image FROM Brewery";
 			var reader = commande.ExecuteReader();
 
 			var listeBreweries = new List<Brewery_DAL>();
@@ -27,7 +28,10 @@ namespace Ubeer.DAL.Depot
 											reader.GetString(2),
 											reader.GetString(3),
 											reader.GetString(4),
-											reader.GetString(5));
+											reader.GetString(5),
+											reader.GetDateTime(6),
+											reader.GetDateTime(7),
+											reader.GetString(8));
 
 				listeBreweries.Add(brewery);
 			}
@@ -43,8 +47,8 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "SELECT ID, Code, Libelle, PostalCode, City, WebsiteUrl FROM Brewery WHERE ID = @ID";
-			commande.Parameters.Add(new SqlParameter("@ID", ID));
+			commande.CommandText = "SELECT ID, Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image FROM Brewery WHERE ID = @ID";
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", ID));
 			var reader = commande.ExecuteReader();
 
 			Brewery_DAL brewery;
@@ -55,7 +59,10 @@ namespace Ubeer.DAL.Depot
 											reader.GetString(2),
 											reader.GetString(3),
 											reader.GetString(4),
-											reader.GetString(5));
+											reader.GetString(5),
+											reader.GetDateTime(6),
+											reader.GetDateTime(7),
+											reader.GetString(8));
 			}
 			else
 			{
@@ -73,12 +80,13 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "INSERT INTO Brewery (Code, Libelle, PostalCode, City, WebsiteUrl) VALUES (@Code, @Libelle, @PostalCode, @City, @WebsiteUrl); SELECT SCOPE_IDENTITY()";
-			commande.Parameters.Add(new SqlParameter("@Code", brewery.Code));
-			commande.Parameters.Add(new SqlParameter("@Libelle", brewery.Libelle));
-			commande.Parameters.Add(new SqlParameter("@PostalCode", brewery.PostalCode));
-			commande.Parameters.Add(new SqlParameter("@City", brewery.City));
-			commande.Parameters.Add(new SqlParameter("@WebsiteUrl", brewery.WebsiteUrl));
+			commande.CommandText = "INSERT INTO Brewery (Code, Libelle, PostalCode, City, WebsiteUrl, Creation, LastUpdate, Image) VALUES (@Code, @Libelle, @PostalCode, @City, @WebsiteUrl, GETDATE(), GETDATE(), @Image); SELECT SCOPE_IDENTITY()";
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Code", brewery.Code));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", brewery.Libelle));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@PostalCode", brewery.PostalCode));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@City", brewery.City));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@WebsiteUrl", brewery.WebsiteUrl));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", brewery.Image));
 
 			var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
@@ -95,13 +103,14 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "UPDATE Brewery SET ID=@ID, Code=@Code, Libelle=@Libelle, PostalCode=@PostalCode, City=@City, WebsiteUrl=@WebsiteUrl WHERE ID=@ID";
-			commande.Parameters.Add(new SqlParameter("@ID", brewery.ID));
-			commande.Parameters.Add(new SqlParameter("@Code", brewery.Code));
-			commande.Parameters.Add(new SqlParameter("@Libelle", brewery.Libelle));
-			commande.Parameters.Add(new SqlParameter("@PostalCode", brewery.PostalCode));
-			commande.Parameters.Add(new SqlParameter("@City", brewery.City));
-			commande.Parameters.Add(new SqlParameter("@WebsiteUrl", brewery.WebsiteUrl));
+			commande.CommandText = "UPDATE Brewery SET ID=@ID, Code=@Code, Libelle=@Libelle, PostalCode=@PostalCode, City=@City, WebsiteUrl=@WebsiteUrl, LastUpdate=GETDATE(), Image=@Image WHERE ID=@ID";
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", brewery.ID));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Code", brewery.Code));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", brewery.Libelle));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@PostalCode", brewery.PostalCode));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@City", brewery.City));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@WebsiteUrl", brewery.WebsiteUrl));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", brewery.Image));
 
 			var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
@@ -122,7 +131,7 @@ namespace Ubeer.DAL.Depot
 			CreerConnexionEtCommande();
 
 			commande.CommandText = "DELETE FROM Brewery WHERE ID=@ID";
-			commande.Parameters.Add(new SqlParameter("@ID", brewery.ID));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", brewery.ID));
 			var nombreDeLignesAffectees = commande.ExecuteNonQuery();
 
 			if (nombreDeLignesAffectees != 1)

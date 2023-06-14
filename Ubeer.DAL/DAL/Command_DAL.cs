@@ -20,9 +20,11 @@ namespace Ubeer.DAL.DAL
 
         public DateTime RealDeliveryDate { get; set; }
 
-        public Command_DAL(int id, int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate ) => (ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate) = (id, idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate);
+		public DateTime LastUpdate { get; set; }
 
-        public Command_DAL(int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate) => (IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate) = (idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate);
+		public Command_DAL(int id, int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (ID, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (id, idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
+
+        public Command_DAL(int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
 
     }
 }

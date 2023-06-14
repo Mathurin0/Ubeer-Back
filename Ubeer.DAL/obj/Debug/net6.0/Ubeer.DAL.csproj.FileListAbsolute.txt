@@ -3,3 +3,10 @@ C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.Generated
 C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.AssemblyInfoInputs.cache
 C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.AssemblyInfo.cs
 C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.csproj.CoreCompileInputs.cache
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\bin\Debug\net6.0\Ubeer.DAL.deps.json
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\bin\Debug\net6.0\Ubeer.DAL.dll
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\bin\Debug\net6.0\Ubeer.DAL.pdb
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.dll
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\refint\Ubeer.DAL.dll
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\Ubeer.DAL.pdb
+C:\Users\mamat\source\repos\Ubeer\Ubeer.DAL\obj\Debug\net6.0\ref\Ubeer.DAL.dll

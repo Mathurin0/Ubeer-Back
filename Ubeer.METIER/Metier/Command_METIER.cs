@@ -22,9 +22,10 @@ namespace Ubeer.METIER.Metier
 
         public DateTime RealDeliveryDate { get; set; }
 
-        public Command_METIER(int id, int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate ) => (Id, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate) = (id, idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate);
+		public DateTime LastUpdate { get; set; }
 
-        public Command_METIER(int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate) => (IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate) = (idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate);
+		public Command_METIER(int id, int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (Id, IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (id, idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
 
-    }
+		public Command_METIER(int idUser, int idAddress, DateTime orderDate, DateTime estimatedDeliveryDate, DateTime realDeliveryDate, DateTime lastUpdate) => (IdUser, IdAddress, OrderDate, EstimatedDeliveryDate, RealDeliveryDate, LastUpdate) = (idUser, idAddress, orderDate, estimatedDeliveryDate, realDeliveryDate, lastUpdate);
+	}
 }

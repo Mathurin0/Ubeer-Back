@@ -12,8 +12,12 @@ namespace Ubeer.DAL.DAL
 
         public string Libelle { get; set; }
 
-        public BeerStyle_DAL(int id, string libelle ) => (ID, Libelle ) = (id, libelle);
-        public BeerStyle_DAL(string libelle) => (Libelle) = (libelle);
+		public DateTime Creation { get; set; }
+
+		public DateTime LastUpdate { get; set; }
+
+		public BeerStyle_DAL(int id, string libelle, DateTime creation, DateTime lastUpdate) => (ID, Libelle, Creation, LastUpdate) = (id, libelle, creation, lastUpdate);
+        public BeerStyle_DAL(string libelle, DateTime creation, DateTime lastUpdate) => (Libelle, Creation, LastUpdate) = (libelle, creation, lastUpdate);
 
     }
 }

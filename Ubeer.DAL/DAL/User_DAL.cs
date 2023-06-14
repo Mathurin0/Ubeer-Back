@@ -17,9 +17,11 @@ namespace Ubeer.DAL.DAL
 
         public DateTime MemberShipDate { get; set; }
 
-        public User_DAL(int id, string userName, string password, string email, DateTime memberShipDate) => (Id, UserName, Password, Email, MemberShipDate) = (id, userName, password, email, memberShipDate);
+		public DateTime LastUpdate { get; set; }
 
-        public User_DAL(string userName, string password, string email, DateTime memberShipDate) => (UserName, Password, Email, MemberShipDate) = (userName, password, email, memberShipDate);
+		public User_DAL(int id, string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (Id, UserName, Password, Email, MemberShipDate, LastUpdate) = (id, userName, password, email, memberShipDate, lastUpdate);
+
+        public User_DAL(string userName, string password, string email, DateTime memberShipDate, DateTime lastUpdate) => (UserName, Password, Email, MemberShipDate, LastUpdate) = (userName, password, email, memberShipDate, lastUpdate);
 
     }
 }

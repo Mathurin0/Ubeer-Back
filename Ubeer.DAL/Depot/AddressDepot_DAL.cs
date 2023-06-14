@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using Ubeer.DAL.DAL;
 
 namespace Ubeer.DAL.Depot
@@ -8,7 +10,7 @@ namespace Ubeer.DAL.Depot
         public override List<Address_DAL> GetAll()
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "SELECT ID, IdUser, Libelle, Address, AddressComplement, City, Region, Country, PostalCode, PhoneNumber FROM Address";
+            commande.CommandText = "SELECT ID, IdUser, Libelle, Address, AddressComplement, City, Region, Country, PostalCode, PhoneNumber, Creation, LastUpdate FROM Address";
             var reader = commande.ExecuteReader();
 
             var addressList = new List<Address_DAL>();
@@ -24,8 +26,9 @@ namespace Ubeer.DAL.Depot
                                         reader.GetString(7),
                                         reader.GetString(8),
                                         reader.GetString(9),
-                                        reader.GetString(10)
-                                        );
+                                        reader.GetString(10),
+                                        reader.GetDateTime(11),
+										reader.GetDateTime(12));
 
                 addressList.Add(address);
             }
@@ -39,7 +42,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, IdUser, Libelle, Address, AddressComplement, City, Region, Country, PostalCode, PhoneNumber FROM address WHERE ID=@ID";
+            commande.CommandText = "SELECT ID, IdUser, Libelle, Address, AddressComplement, City, Region, Country, PostalCode, PhoneNumber, Creation, LastUpdate FROM address WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
@@ -55,8 +58,10 @@ namespace Ubeer.DAL.Depot
                                         reader.GetString(7),
                                         reader.GetString(8),
                                         reader.GetString(9),
-                                        reader.GetString(10)
-                                        );
+                                        reader.GetString(10),
+										reader.GetDateTime(11),
+										reader.GetDateTime(12)
+										);
             }
             else
             {
@@ -72,7 +77,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO Address (libelle, address, addresscomplement, city, region, country, postalcode, phonenumber) VALUES (@Libelle, @Address, @AddressComplement, @City, @Region, @Country, @PostalCode, @PhoneNumber); SELECT SCOPE_IDENTITY()";
+            commande.CommandText = "INSERT INTO Address (libelle, address, addresscomplement, city, region, country, postalcode, phonenumber, Creation, LastUpdate) VALUES (@Libelle, @Address, @AddressComplement, @City, @Region, @Country, @PostalCode, @PhoneNumber, GETDATE(), GETDATE()); SELECT SCOPE_IDENTITY()";
             commande.Parameters.Add(new SqlParameter("@Libelle", address.Libelle));
             commande.Parameters.Add(new SqlParameter("@Address", address.Address));
             commande.Parameters.Add(new SqlParameter("@AddressComplement", address.AddressComplement));
@@ -95,7 +100,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE Address SET libelle=@Libelle, address=@Address, addresscomplement=@AddressCompelement, city=@City, region=@Region, country=@Country, phoneNumber=@phoneNumber WHERE ID=@ID";
+            commande.CommandText = "UPDATE Address SET libelle=@Libelle, address=@Address, addresscomplement=@AddressCompelement, city=@City, region=@Region, country=@Country, phoneNumber=@phoneNumber, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@Libelle", address.Libelle));
             commande.Parameters.Add(new SqlParameter("@Address", address.Address));
             commande.Parameters.Add(new SqlParameter("@AddressComplement", address.AddressComplement));

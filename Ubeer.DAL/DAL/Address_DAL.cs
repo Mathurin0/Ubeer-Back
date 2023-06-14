@@ -1,4 +1,6 @@
-﻿namespace Ubeer.DAL.DAL
+﻿using System;
+
+namespace Ubeer.DAL.DAL
 {
     public class Address_DAL
     {
@@ -22,9 +24,13 @@
 
         public string PhoneNumber { get; set; }
 
-        public Address_DAL(int id, int idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber) => (ID, IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber) = (id, idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber);
+        public DateTime Creation { get; set; }
 
-        public Address_DAL(int idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber) => (IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber) = (idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber);
+		public DateTime LastUpdate { get; set; }
+
+		public Address_DAL(int id, int idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber, DateTime creation, DateTime lastUpdate) => (ID, IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber, Creation, LastUpdate) = (id, idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber, creation, lastUpdate);
+
+        public Address_DAL(int idUser, string libelle, string address, string addressComplement, string city, string region, string country, string postalCode, string phoneNumber, DateTime creation, DateTime lastUpdate) => (IdUser, Libelle, Address, AddressComplement, City, Region, PostalCode, Country, PhoneNumber, Creation, LastUpdate) = (idUser, libelle, address, addressComplement, city, region, postalCode, country, phoneNumber, creation, lastUpdate);
 
     }
 }

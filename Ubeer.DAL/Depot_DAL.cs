@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 
 namespace Ubeer.DAL

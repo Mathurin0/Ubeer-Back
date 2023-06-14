@@ -14,7 +14,8 @@ namespace Ubeer.DAL.DAL
 
         public int Quantity { get; set; }
 
-        public BeerQuantity_DAL(int idBeer, int idCommand, int quantity ) => (IdBeer, IdCommand, Quantity) = ( idBeer, idCommand, quantity);
+		public DateTime LastUpdate { get; set; }
 
-    }
+		public BeerQuantity_DAL(int idBeer, int idCommand, int quantity, DateTime lastUpdate) => (IdBeer, IdCommand, Quantity, LastUpdate) = ( idBeer, idCommand, quantity, lastUpdate);
+	}
 }

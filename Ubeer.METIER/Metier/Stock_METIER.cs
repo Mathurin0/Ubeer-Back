@@ -15,7 +15,11 @@ namespace Ubeer.METIER.Metier
         public int IdBeer { get; set; }
         public int Quantity { get; set; }
 
-        public Stock_METIER(int idBrewery, int idBeer, int quantity) => (IdBrewery, IdBeer, Quantity) = (idBrewery, idBeer, quantity);
+		public DateTime LastUpdate { get; set; }
 
-    }
+		public Stock_METIER(int idBrewery, int idBeer, int quantity, DateTime lastUpdate) => (IdBrewery, IdBeer, Quantity, LastUpdate) = (idBrewery, idBeer, quantity, lastUpdate);
+
+		public Stock_METIER(int quantity, DateTime lastUpdate) => (Quantity, LastUpdate) = (quantity, lastUpdate);
+
+	}
 }

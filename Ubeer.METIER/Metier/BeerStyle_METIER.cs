@@ -14,8 +14,12 @@ namespace Ubeer.METIER.Metier
 
         public string Libelle { get; set; }
 
-        public BeerStyle_METIER(int id, string libelle ) => (Id, Libelle ) = (id, libelle);
-        public BeerStyle_METIER(string libelle) => (Libelle) = (libelle);
+		public DateTime Creation { get; set; }
 
-    }
+		public DateTime LastUpdate { get; set; }
+
+		public BeerStyle_METIER(int id, string libelle, DateTime creation, DateTime lastUpdate) => (Id, Libelle, Creation, LastUpdate) = (id, libelle, creation, lastUpdate);
+		public BeerStyle_METIER(string libelle, DateTime creation, DateTime lastUpdate) => (Libelle, Creation, LastUpdate) = (libelle, creation, lastUpdate);
+
+	}
 }

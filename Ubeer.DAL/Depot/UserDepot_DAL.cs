@@ -1,5 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Ubeer.DAL.DAL;
+using System;
+using System.Collections.Generic;
 
 namespace Ubeer.DAL.Depot
 {
@@ -8,7 +10,7 @@ namespace Ubeer.DAL.Depot
         public override List<User_DAL> GetAll()
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate FROM User";
+            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate, LastUpdate FROM User";
             var reader = commande.ExecuteReader();
 
             var userList = new List<User_DAL>();
@@ -19,7 +21,8 @@ namespace Ubeer.DAL.Depot
                                   reader.GetString(1),
                                   reader.GetString(2),
                                   reader.GetString(3),
-                                  reader.GetDateTime(4)
+                                  reader.GetDateTime(4),
+                                  reader.GetDateTime(5)
                                   );
 
                 userList.Add(user);
@@ -34,7 +37,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate FROM User WHERE ID=@ID";
+            commande.CommandText = "SELECT ID, UserName, Password, Email, MemberShipDate, LastUpdate FROM User WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
@@ -45,7 +48,8 @@ namespace Ubeer.DAL.Depot
                               reader.GetString(1),
                               reader.GetString(2),
                               reader.GetString(3),
-                              reader.GetDateTime(4)
+                              reader.GetDateTime(4),
+                              reader.GetDateTime(5)
                               );
             }
             else
@@ -62,11 +66,10 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO User (username, password, email, membershipdate) VALUES (@UserName, @Password, @email, @MemberShipDate); SELECT SCOPE_IDENTITY()";
+            commande.CommandText = "INSERT INTO User (username, password, email, membershipdate, LastUpdate) VALUES (@UserName, @Password, @email, GETDATE(), GETDATE()); SELECT SCOPE_IDENTITY()";
             commande.Parameters.Add(new SqlParameter("@UserName", user.UserName));
             commande.Parameters.Add(new SqlParameter("@Password", user.Password));
             commande.Parameters.Add(new SqlParameter("@Email", user.Email));
-            commande.Parameters.Add(new SqlParameter("@MemberShipDate", DateTime.Now));
 
             var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
@@ -81,7 +84,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE User SET username=@UserName, password=@password, email=@Email WHERE ID=@ID";
+            commande.CommandText = "UPDATE User SET username=@UserName, password=@password, email=@Email, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@UserName", user.UserName));
             commande.Parameters.Add(new SqlParameter("@Password", user.Password));
             commande.Parameters.Add(new SqlParameter("@Email", user.Email));

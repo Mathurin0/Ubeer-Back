@@ -16,7 +16,9 @@ namespace Ubeer.METIER.Metier
 
         public int Quantity { get; set; }
 
-        public BeerQuantity_METIER(int idBeer, int idCommand, int quantity ) => (IdBeer, IdCommand, Quantity) = ( idBeer, idCommand, quantity);
+		public DateTime LastUpdate { get; set; }
 
-    }
+		public BeerQuantity_METIER(int idBeer, int idCommand, int quantity, DateTime lastUpdate) => (IdBeer, IdCommand, Quantity, LastUpdate) = (idBeer, idCommand, quantity, lastUpdate);
+
+	}
 }

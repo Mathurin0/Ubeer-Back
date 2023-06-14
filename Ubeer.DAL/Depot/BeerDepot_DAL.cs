@@ -1,5 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
-using System.Net;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using Ubeer.DAL.DAL;
 
 namespace Ubeer.DAL.Depot
@@ -9,7 +11,7 @@ namespace Ubeer.DAL.Depot
         public override List<Beer_DAL> GetAll()
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "SELECT ID, StyleId, Libelle, AlcoholVolume, UnitPrice FROM Beer";
+            commande.CommandText = "SELECT ID, StyleId, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image FROM Beer";
             var reader = commande.ExecuteReader();
 
             var beerList = new List<Beer_DAL>();
@@ -20,8 +22,11 @@ namespace Ubeer.DAL.Depot
                                         reader.GetInt32(1),
                                         reader.GetString(2),
                                         reader.GetFloat(3),
-                                        reader.GetFloat(4)
-                                        );
+                                        reader.GetFloat(4),
+										reader.GetDateTime(5),
+										reader.GetDateTime(6),
+                                        reader.GetString(7)
+										);
 
                 beerList.Add(item);
             }
@@ -35,8 +40,8 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "SELECT ID, StyleId, Libelle, AlcoholVolume, UnitPrice FROM Beer WHERE ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@ID", ID));
+            commande.CommandText = "SELECT ID, StyleId, Libelle, AlcoholVolume, UnitPrice, Creation, LastUpdate, Image FROM Beer WHERE ID=@ID";
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
             Beer_DAL beer;
@@ -46,8 +51,11 @@ namespace Ubeer.DAL.Depot
                                         reader.GetInt32(1),
                                         reader.GetString(2),
                                         reader.GetFloat(3),
-                                        reader.GetFloat(4)
-                                        );
+                                        reader.GetFloat(4),
+										reader.GetDateTime(5),
+										reader.GetDateTime(6),
+										reader.GetString(7)
+										);
             }
             else
             {
@@ -63,12 +71,13 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "INSERT INTO Beer (libelle, alcoholvolume, unitprice) VALUES (@Libelle, @AlcoholVolume, @UnitPrice); SELECT SCOPE_IDENTITY()";
-            commande.Parameters.Add(new SqlParameter("@Libelle", beer.Libelle));
-            commande.Parameters.Add(new SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
-            commande.Parameters.Add(new SqlParameter("@UnitPrice", beer.UnitPrice));
+            commande.CommandText = "INSERT INTO Beer (libelle, alcoholvolume, unitprice, Creation, LastUpdate, Image) VALUES (@Libelle, @AlcoholVolume, @UnitPrice, GETDATE(), GETDATE(), @Image) SELECT SCOPE_IDENTITY()";
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", beer.Libelle));
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@UnitPrice", beer.UnitPrice));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", beer.Image));
 
-            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+			var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
             beer.ID = ID;
 
@@ -81,12 +90,13 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE Beer SET libelle=@Libelle, alcoholvolume=@AlcoholVolume, unitprice=@UnitPrice, WHERE ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@Libelle", beer.Libelle));
-            commande.Parameters.Add(new SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
-            commande.Parameters.Add(new SqlParameter("@UnitPrice", beer.UnitPrice));
+            commande.CommandText = "UPDATE Beer SET libelle=@Libelle, alcoholvolume=@AlcoholVolume, unitprice=@UnitPrice, LastUpdate=GETDATE(), Image=@Image WHERE ID=@ID";
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", beer.Libelle));
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@UnitPrice", beer.UnitPrice));
+			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", beer.Image));
 
-            var affectedRow = (int)commande.ExecuteNonQuery();
+			var affectedRow = (int)commande.ExecuteNonQuery();
 
             if (affectedRow != 1)
             {
@@ -103,7 +113,7 @@ namespace Ubeer.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "DELETE FROM Beer WHERE ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@ID", beer.ID));
+            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", beer.ID));
             var affectedRow = commande.ExecuteNonQuery();
 
             if (affectedRow != 1)

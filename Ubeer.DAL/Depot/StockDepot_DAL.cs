@@ -10,12 +10,12 @@ namespace Ubeer.DAL.Depot
 {
 	public class StockDepot_DAL : Depot_DAL<Stock_DAL>
 	{
+		#region GetAll
 		public override List<Stock_DAL> GetAll()
 		{
-			#region GetAll
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "SELECT IdBrewery, IdBeer, Quantity FROM Stock";
+			commande.CommandText = "SELECT IdBrewery, IdBeer, Quantity, LastUpdate FROM Stock";
 			var reader = commande.ExecuteReader();
 
 			var listeStocks = new List<Stock_DAL>();
@@ -24,7 +24,8 @@ namespace Ubeer.DAL.Depot
 			{
 				var stock = new Stock_DAL(reader.GetInt32(0),
 											reader.GetInt32(1),
-											reader.GetInt32(2));
+											reader.GetInt32(2),
+											reader.GetDateTime(3));
 
 				listeStocks.Add(stock);
 			}
@@ -35,12 +36,36 @@ namespace Ubeer.DAL.Depot
 		}
 		#endregion
 
-		#region GetByIdBeer
-		public override Stock_DAL GetByID(int IdBeer)
+		public override Stock_DAL GetByID(int ID)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Stock_DAL GetByIdBeerAndIdBrewery(int idBeer, int idBrewery)
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "SELECT IdBrewery, IdBeer, Quantity FROM Stock WHERE IdBeer = @IdBeer";
+			commande.CommandText = "Select Quatity, LastUpdate from Stock Where IdBrewery=@IdBrewery AND IdBeer=@IdBeer";
+			commande.Parameters.Add(new SqlParameter("@IdBeer", idBeer));
+			commande.Parameters.Add(new SqlParameter("@IdBrewery", idBrewery));
+			var reader = commande.ExecuteReader();
+
+			var stock = new Stock_DAL(idBrewery,
+									idBeer,
+									reader.GetInt32(0),
+											reader.GetDateTime(3));
+
+			DetruireConnexionEtCommande();
+
+			return stock;
+		}
+
+		#region GetByIdBeer
+		public Stock_DAL GetByIdBeer(int IdBeer)
+		{
+			CreerConnexionEtCommande();
+
+			commande.CommandText = "SELECT IdBrewery, IdBeer, Quantity, LastUpdate FROM Stock WHERE IdBeer = @IdBeer";
 			commande.Parameters.Add(new SqlParameter("@IdBeer", IdBeer));
 			var reader = commande.ExecuteReader();
 
@@ -49,7 +74,8 @@ namespace Ubeer.DAL.Depot
 			{
 				stock = new Stock_DAL(reader.GetInt32(0),
 											reader.GetInt32(1),
-											reader.GetInt32(2));
+											reader.GetInt32(2),
+											reader.GetDateTime(3));
 			}
 			else
 			{
@@ -63,29 +89,25 @@ namespace Ubeer.DAL.Depot
 		#endregion
 
 		#region GetByIdBrewery
-		public Stock_DAL GetByIdBrewery(int IdBrewery)
+		public List<Stock_DAL> GetByIdBrewery(int IdBrewery)
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "SELECT IdBrewery, IdBeer, Quantity FROM Stock WHERE IdBrewery = @IdBrewery";
+			commande.CommandText = "SELECT IdBrewery, IdBeer, Quantity, LastUpdate FROM Stock WHERE IdBrewery = @IdBrewery";
 			commande.Parameters.Add(new SqlParameter("@IdBrewery", IdBrewery));
 			var reader = commande.ExecuteReader();
-
-			Stock_DAL stock;
-			if (reader.Read())
+			var result = new List<Stock_DAL>();
+			while (reader.Read())
 			{
-				stock = new Stock_DAL(reader.GetInt32(0),
-											reader.GetInt32(1),
-											reader.GetInt32(2));
-			}
-			else
-			{
-				throw new Exception($"IdBrewery {IdBrewery} not found in stock table");
+				result.Add(new Stock_DAL(reader.GetInt32(0),
+										reader.GetInt32(1),
+										reader.GetInt32(2),
+										reader.GetDateTime(3)));
 			}
 
 			DetruireConnexionEtCommande();
 
-			return stock;
+			return result;
 		}
 		#endregion
 
@@ -94,7 +116,7 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "INSERT INTO Stock (IdBrewery, IdBeer, Quantity) VALUES (@IdBrewery, @IdBeer, @Quantity); SELECT SCOPE_IDENTITY()";
+			commande.CommandText = "INSERT INTO Stock (IdBrewery, IdBeer, Quantity, LastUpdate) VALUES (@IdBrewery, @IdBeer, @Quantity, GETDATE()); SELECT SCOPE_IDENTITY()";
 			commande.Parameters.Add(new SqlParameter("@IdBrewery", stock.IdBrewery));
 			commande.Parameters.Add(new SqlParameter("@IdBeer", stock.IdBeer));
 			commande.Parameters.Add(new SqlParameter("@Quantity", stock.Quantity));
@@ -110,7 +132,7 @@ namespace Ubeer.DAL.Depot
 		{
 			CreerConnexionEtCommande();
 
-			commande.CommandText = "UPDATE Stock SET Quantity=@Quantity WHERE IdBrewery=@IdBrewery AND IdBeer=@IdBeer";
+			commande.CommandText = "UPDATE Stock SET Quantity=@Quantity, LastUpdate=GETDATE() WHERE IdBrewery=@IdBrewery AND IdBeer=@IdBeer";
 			commande.Parameters.Add(new SqlParameter("@Quantity", stock.Quantity));
 			commande.Parameters.Add(new SqlParameter("@IdBrewery", stock.IdBrewery));
 			commande.Parameters.Add(new SqlParameter("@IdBeer", stock.IdBeer));
