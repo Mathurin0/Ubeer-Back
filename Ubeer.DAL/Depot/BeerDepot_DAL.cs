@@ -21,8 +21,8 @@ namespace Ubeer.DAL.Depot
                 var item = new Beer_DAL(reader.GetGuid(0).ToString(),
                                         reader.GetGuid(1).ToString(),
                                         reader.GetString(2),
-                                        reader.GetFloat(3),
-                                        reader.GetFloat(4),
+                                        (float)reader.GetDouble(3),
+										(float)reader.GetDouble(4),
 										reader.GetDateTime(5),
 										reader.GetDateTime(6),
                                         reader.GetString(7)
@@ -50,8 +50,8 @@ namespace Ubeer.DAL.Depot
                 beer = new Beer_DAL(reader.GetGuid(0).ToString(),
                                         reader.GetGuid(1).ToString(),
                                         reader.GetString(2),
-                                        reader.GetFloat(3),
-                                        reader.GetFloat(4),
+										(float)reader.GetDouble(3),
+										(float)reader.GetDouble(4),
 										reader.GetDateTime(5),
 										reader.GetDateTime(6),
 										reader.GetString(7)
@@ -87,12 +87,12 @@ namespace Ubeer.DAL.Depot
 			}
 
 			commande.CommandText = "INSERT INTO Beer (ID, IdStyle, libelle, alcoholvolume, unitprice, Creation, LastUpdate, Image) VALUES (@ID, @IdStyle, @Libelle, @AlcoholVolume, @UnitPrice, GETDATE(), GETDATE(), @Image) SELECT SCOPE_IDENTITY()";
-            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", beer.Libelle));
-            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
-            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@UnitPrice", beer.UnitPrice));
-			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", beer.Image));
-			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@IdStyle", beer.IdStyle));
-			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", ID));
+            commande.Parameters.Add(new SqlParameter("@Libelle", beer.Libelle));
+            commande.Parameters.Add(new SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
+            commande.Parameters.Add(new SqlParameter("@UnitPrice", beer.UnitPrice));
+			commande.Parameters.Add(new SqlParameter("@Image", beer.Image));
+			commande.Parameters.Add(new SqlParameter("@IdStyle", beer.IdStyle));
+			commande.Parameters.Add(new SqlParameter("@ID", ID));
 
 			int nbLinesAffected = commande.ExecuteNonQuery();
 
@@ -111,10 +111,11 @@ namespace Ubeer.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "UPDATE Beer SET libelle=@Libelle, alcoholvolume=@AlcoholVolume, unitprice=@UnitPrice, LastUpdate=GETDATE(), Image=@Image WHERE ID=@ID";
-            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Libelle", beer.Libelle));
-            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
-            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@UnitPrice", beer.UnitPrice));
-			commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Image", beer.Image));
+            commande.Parameters.Add(new SqlParameter("@Libelle", beer.Libelle));
+            commande.Parameters.Add(new SqlParameter("@AlcoholVolume", beer.AlcoholVolume));
+            commande.Parameters.Add(new SqlParameter("@UnitPrice", beer.UnitPrice));
+			commande.Parameters.Add(new SqlParameter("@Image", beer.Image));
+			commande.Parameters.Add(new SqlParameter("@ID", beer.ID));
 
 			var affectedRow = (int)commande.ExecuteNonQuery();
 
@@ -133,7 +134,7 @@ namespace Ubeer.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "DELETE FROM Beer WHERE ID=@ID";
-            commande.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@ID", beer.ID));
+            commande.Parameters.Add(new SqlParameter("@ID", beer.ID));
             var affectedRow = commande.ExecuteNonQuery();
 
             if (affectedRow != 1)
