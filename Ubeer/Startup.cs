@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Azure;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ubeer.METIER.Service;
 
-namespace Raminagrobis.API
+namespace Ubeer.API
 {
 	public class Startup
 	{
@@ -42,7 +44,7 @@ namespace Raminagrobis.API
 			services.AddSingleton(typeof(Command_Service), new Command_Service());
 			services.AddSingleton(typeof(Stock_Service), new Stock_Service());
 			services.AddSingleton(typeof(User_Service), new User_Service());
-		}
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,7 +53,7 @@ namespace Raminagrobis.API
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Raminagrobis.API v1"));
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ubeer.API v1"));
 			}
 
 			app.UseHttpsRedirection();
@@ -59,6 +61,15 @@ namespace Raminagrobis.API
 			app.UseRouting();
 
 			app.UseAuthorization();
+
+            app.UseCors(x => x
+				 .AllowAnyMethod()
+				 .AllowAnyHeader()
+				 .AllowCredentials()
+				 .WithOrigins("http://localhost:3000")
+				 .SetIsOriginAllowed(origin => true));
+
+            app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{
