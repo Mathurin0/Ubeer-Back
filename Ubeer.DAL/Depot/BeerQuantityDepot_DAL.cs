@@ -37,13 +37,13 @@ namespace Ubeer.DAL.Depot
             throw new NotImplementedException();
         }
 
-        public BeerQuantity_DAL GetByIdBeerAndIdCommande(string idBeer, string idCommand)
+        public BeerQuantity_DAL GetByIdBeerAndIdCommand(string idBeer, string idCommand)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "Select Quantity, LastUpdate From BeerQuantity Where IdBeer=@IdBeer And IdCommande=@IdCommande";
-            commande.Parameters.Add(("@IdBeer", idBeer));
-            commande.Parameters.Add(("@IdCommande", idCommand));
+            commande.CommandText = "Select Quantity, LastUpdate From BeerQuantity Where IdBeer=@IdBeer And IdCommand=@IdCommand";
+            commande.Parameters.Add(new SqlParameter("@IdBeer", idBeer));
+            commande.Parameters.Add(new SqlParameter("@IdCommand", idCommand));
             var reader = commande.ExecuteReader();
             BeerQuantity_DAL beerQuantity;
 

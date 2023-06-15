@@ -33,37 +33,39 @@ namespace Ubeer.Controllers
 		#endregion
 
 		#region GetByIdUser
-		//[HttpGet("{idUser}")]			TODO
-		//public List<Command_DTO> GetByIdUser(string idUser)
-		//{
-		//	return service.GetByIdUser(idUser).Select(item => new Command_DTO
-		//	{
-		//		ID = item.Id,
-		//		IdUser = item.IdUser,
-		//		IdAddress = item.IdAddress,
-		//		OrderDate = item.OrderDate,
-		//		EstimatedDeliveryDate = item.EstimatedDeliveryDate,
-		//		RealDeliveryDate = item.RealDeliveryDate,
-		//		LastUpdate = item.LastUpdate
-		//	});
-		//}
+		[Route("User/{idUser}")]
+		[HttpGet]
+		public IEnumerable<Command_DTO> GetByIdUser(string idUser)
+		{
+			return service.GetByIdUser(idUser).Select(item => new Command_DTO
+			{
+				ID = item.Id,
+				IdUser = item.IdUser,
+				IdAddress = item.IdAddress,
+				OrderDate = item.OrderDate,
+				EstimatedDeliveryDate = item.EstimatedDeliveryDate,
+				RealDeliveryDate = item.RealDeliveryDate,
+				LastUpdate = item.LastUpdate
+			});
+		}
 		#endregion
 
 		#region GetByIdAddress
-		//[HttpGet("{idAddress}")]		TODO
-		//public List<Command_DTO> GetByIdAddress(string idAddress)
-		//{
-		//	return service.GetByIdAddress(idAddress).Select(item => new Command_DTO
-		//	{
-		//		ID = item.Id,
-		//		IdUser = item.IdUser,
-		//		IdAddress = item.IdAddress,
-		//		OrderDate = item.OrderDate,
-		//		EstimatedDeliveryDate = item.EstimatedDeliveryDate,
-		//		RealDeliveryDate = item.RealDeliveryDate,
-		//		LastUpdate = item.LastUpdate
-		//	});
-		//}
+		[Route("Address/{idAddress}")]
+		[HttpGet]
+		public IEnumerable<Command_DTO> GetByIdAddress(string idAddress)
+		{
+			return service.GetByIdAddress(idAddress).Select(item => new Command_DTO
+			{
+				ID = item.Id,
+				IdUser = item.IdUser,
+				IdAddress = item.IdAddress,
+				OrderDate = item.OrderDate,
+				EstimatedDeliveryDate = item.EstimatedDeliveryDate,
+				RealDeliveryDate = item.RealDeliveryDate,
+				LastUpdate = item.LastUpdate
+			});
+		}
 		#endregion
 
 		#region Insert

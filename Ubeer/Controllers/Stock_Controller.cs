@@ -45,7 +45,8 @@ namespace Ubeer.Controllers
 		#endregion
 
 		#region GetByIdBeer
-		[HttpGet("{idBeer}")]
+		[Route("Beer/{idBeer}")]
+		[HttpGet]
 		public Stock_DTO GetByIdBeer(string idBeer)
 		{
 			var item = service.GetByIdBeer(idBeer);
@@ -60,17 +61,18 @@ namespace Ubeer.Controllers
 		#endregion
 
 		#region GetByIdBrewery
-		//[HttpGet("{idBrewery}")]			TODO
-		//public BeerQuantity_DTO GetByIdBrewery(string idBrewery)
-		//{
-		//	return service.GetByIdBrewery(idBrewery).Select(item => new Stock_DTO
-		//	{
-		//		IdBrewery = item.IdBrewery,
-		//		IdBeer = item.IdBeer,
-		//		Quantity = item.Quantity,
-		//		LastUpdate = item.LastUpdate
-		//	});
-		//}
+		[Route("Brewery/{idBrewery}")]
+		[HttpGet]
+		public IEnumerable<Stock_DTO> GetByIdBrewery(string idBrewery)
+		{
+			return service.GetByIdBrewery(idBrewery).Select(item => new Stock_DTO
+			{
+				IdBrewery = item.IdBrewery,
+				IdBeer = item.IdBeer,
+				Quantity = item.Quantity,
+				LastUpdate = item.LastUpdate
+			});
+		}
 		#endregion
 
 		#region Insert

@@ -48,7 +48,7 @@ namespace Ubeer.METIER.Service
 		#region Update
 		public void Update(Beer_DTO input)
 		{
-			var beer = new Beer_DAL(input.IdStyle, input.Libelle, input.AlcoholVolume, input.UnitPrice, input.Creation, input.LastUpdate, input.Image);
+			var beer = new Beer_DAL(input.ID, input.IdStyle, input.Libelle, input.AlcoholVolume, input.UnitPrice, input.Creation, input.LastUpdate, input.Image);
 			var depot = new BeerDepot_DAL();
 			depot.Update(beer);
 		}

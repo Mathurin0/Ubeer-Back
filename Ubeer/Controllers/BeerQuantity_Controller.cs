@@ -30,31 +30,33 @@ namespace Ubeer.Controllers
 		#endregion
 
 		#region GetByIdCommand
-		//[HttpGet("{idCommand}")]				TODO
-		//public List<BeerQuantity_DTO> GetByIdCommand(string idCommand)
-		//{
-		//	return service.GetByIdCommand(idCommand).Select(item => new BeerQuantity_DTO
-		//	{
-		//		IdBeer = item.IdBeer,
-		//		IdCommand = item.IdCommand,
-		//		Quantity = item.Quantity,
-		//		LastUpdate = item.LastUpdate
-		//	});
-		//}
+		[Route("Command/{idCommand}")]
+		[HttpGet]
+		public IEnumerable<BeerQuantity_DTO> GetByIdCommand(string idCommand)
+		{
+			return service.GetByIdCommand(idCommand).Select(item => new BeerQuantity_DTO
+			{
+				IdBeer = item.IdBeer,
+				IdCommand = item.IdCommand,
+				Quantity = item.Quantity,
+				LastUpdate = item.LastUpdate
+			});
+		}
 		#endregion
 
 		#region GetByIdBeer
-		//[HttpGet("{idBeer}")]			TODO
-		//public List<BeerQuantity_DTO> GetByIdBeer(string idBeer)
-		//{
-		//	return service.GetByIdBeer(idBeer).Select(item => new BeerQuantity_DTO
-		//	{
-		//		IdBeer = item.IdBeer,
-		//		IdCommand = item.IdCommand,
-		//		Quantity = item.Quantity,
-		//		LastUpdate = item.LastUpdate
-		//	});
-		//}
+		[Route("Beer/{idBeer}")]
+		[HttpGet]
+		public IEnumerable<BeerQuantity_DTO> GetByIdBeer(string idBeer)
+		{
+			return service.GetByIdBeer(idBeer).Select(item => new BeerQuantity_DTO
+			{
+				IdBeer = item.IdBeer,
+				IdCommand = item.IdCommand,
+				Quantity = item.Quantity,
+				LastUpdate = item.LastUpdate
+			});
+		}
 		#endregion
 
 		#region Insert
@@ -62,14 +64,6 @@ namespace Ubeer.Controllers
 		public void Insert([FromBody] BeerQuantity_DTO item)
 		{
 			service.Insert(item);
-		}
-		#endregion
-
-		#region Delete
-		[HttpDelete("{idBeer},{idCommand}")]
-		public void Delete(string idBeer, string idCommand)
-		{
-			service.Delete(idBeer, idCommand);
 		}
 		#endregion
 	}

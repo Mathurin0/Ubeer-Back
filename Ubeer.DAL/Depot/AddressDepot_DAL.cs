@@ -123,7 +123,7 @@ namespace Ubeer.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE Address SET Libelle=@Libelle, Address=@Address, AddressComplement=@AddressComplement, City=@City, Region=@Region, Country=@Country, PhoneNumber=@phoneNumber, LastUpdate=GETDATE() WHERE ID=@ID";
+            commande.CommandText = "UPDATE Address SET Libelle=@Libelle, Address=@Address, AddressComplement=@AddressComplement, City=@City, Region=@Region, Country=@Country, PostalCode=@PostalCode, PhoneNumber=@phoneNumber, LastUpdate=GETDATE() WHERE ID=@ID";
             commande.Parameters.Add(new SqlParameter("@Libelle", address.Libelle));
             commande.Parameters.Add(new SqlParameter("@Address", address.Address));
             commande.Parameters.Add(new SqlParameter("@AddressComplement", address.AddressComplement));

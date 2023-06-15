@@ -68,7 +68,7 @@ namespace Ubeer.METIER.Service
 		{
 			BeerQuantity_DAL beerQuantity;
 			BeerQuantityDepot_DAL depot = new();
-			beerQuantity = depot.GetByIdBeerAndIdCommande(idBeer, idCommand);
+			beerQuantity = depot.GetByIdBeerAndIdCommand(idBeer, idCommand);
 			depot.Delete(beerQuantity);
 		}
 		#endregion
