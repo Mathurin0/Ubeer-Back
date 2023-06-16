@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Azure;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +19,7 @@ using System.Threading.Tasks;
 using TokenJwt;
 using Ubeer.METIER.Service;
 
-namespace Raminagrobis.API
+namespace Ubeer.API
 {
 	public class Startup
 	{
@@ -77,7 +79,7 @@ namespace Raminagrobis.API
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Raminagrobis.API v1"));
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ubeer.API v1"));
 			}
 
 			app.UseHttpsRedirection();
@@ -87,6 +89,15 @@ namespace Raminagrobis.API
 			app.UseAuthentication();
 
 			app.UseAuthorization();
+
+            app.UseCors(x => x
+				 .AllowAnyMethod()
+				 .AllowAnyHeader()
+				 .AllowCredentials()
+				 .WithOrigins("http://localhost:3000")
+				 .SetIsOriginAllowed(origin => true));
+
+            app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{
