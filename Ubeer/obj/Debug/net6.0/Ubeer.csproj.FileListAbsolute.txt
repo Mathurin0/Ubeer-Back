@@ -144,3 +144,5 @@ C:\Users\mamat\source\repos\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.METIER.dll
 C:\Users\mamat\source\repos\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.METIER.pdb
 C:\Users\mamat\source\repos\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.DAL.pdb
 C:\Users\mamat\source\repos\Ubeer\Ubeer\bin\Debug\net6.0\Ubeer.DTO.pdb
+C:\Users\mamat\source\repos\Ubeer\Ubeer\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\mamat\source\repos\Ubeer\Ubeer\obj\Debug\net6.0\Ubeer.MvcApplicationPartsAssemblyInfo.cs

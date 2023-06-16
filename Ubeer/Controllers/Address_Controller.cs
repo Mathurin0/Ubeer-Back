@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Ubeer.METIER.Service;
 using Ubeer.DTO.DTO;
+using Microsoft.AspNetCore.Authorization;
+using TokenJwt;
 
 namespace Ubeer.API.Controllers
 {

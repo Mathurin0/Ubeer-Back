@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Ubeer.DTO.DTO;
 using Ubeer.METIER.Service;
 
@@ -31,7 +32,7 @@ namespace Ubeer.Controllers
 
 		#region GetByIdBeerAndIdBrewery
 		[HttpGet("{idBeer},{idBrewery}")]
-		public Stock_DTO GetByIdBeerAndIdBrewery(string idBeer, string idBrewery)
+		public Stock_DTO GetByIdBeerAndIdBrewery(string idBeer, string idBrewery, string token)
 		{
 			var item = service.GetByIdBeerAndIdBrewery(idBeer, idBrewery);
 			return new Stock_DTO()

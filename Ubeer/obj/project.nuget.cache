@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "oQCmD2oUXHwxkDzJFB06y5Q6pUHprcGqbYbtds8xftyFACFOTMmWmIJpmq8Chcej+a3jxEq2bGdT47tYvvkt4A==",
+  "dgSpecHash": "H+CuCjHUlUEIoj4UVVHpZ7RxGPN8Ryh9jpssptIc7SP6z32Yu2+cD0jifL2GHMAu0SiHa7UkBklYajgTDqTdPQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\mamat\\source\\repos\\Ubeer\\Ubeer\\Ubeer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mamat\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\mamat\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\mamat\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.18\\microsoft.aspnetcore.authentication.jwtbearer.6.0.18.nupkg.sha512",
     "C:\\Users\\mamat\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\mamat\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\mamat\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",

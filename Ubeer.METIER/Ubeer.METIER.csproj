@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Ubeer.DAL\Ubeer.DAL.csproj" />
     <ProjectReference Include="..\Ubeer.DTO\Ubeer.DTO.csproj" />
   </ItemGroup>
